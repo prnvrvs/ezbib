@@ -51,7 +51,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/project/orcid2bibtex/
+      url: https://pypi.org/project/ezbib/
 
     steps:
       - name: Retrieve release distributions

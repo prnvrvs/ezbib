@@ -3,15 +3,15 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "orcid2bibtex"
+name = "ezbib"
 version = "1.0.0"
-description = "Universal CLI tool to convert any ORCID identifier or DOI into clean BibTeX, Markdown, or Plain Text."
+description = "Universal, zero-dependency CLI tool to convert ORCID identifiers and DOIs into clean BibTeX, Markdown, or Plain Text citations."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
     { name = "Pranav Ravichandran" }
 ]
-keywords = ["orcid", "bibtex", "doi", "bibliography", "academic", "publications", "crossref", "latex"]
+keywords = ["ezbib", "orcid", "bibtex", "doi", "bibliography", "academic", "publications", "crossref", "latex", "citations"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -34,13 +34,14 @@ requires-python = ">=3.7"
 dependencies = []
 
 [project.scripts]
+ezbib = "orcid2bib:main"
 orcid2bib = "orcid2bib:main"
 orcid2bibtex = "orcid2bib:main"
 
 [project.urls]
-Homepage = "https://github.com/prnvrvs/orcid2bibtex"
-Repository = "https://github.com/prnvrvs/orcid2bibtex.git"
-Issues = "https://github.com/prnvrvs/orcid2bibtex/issues"
+Homepage = "https://github.com/prnvrvs/ezbib"
+Repository = "https://github.com/prnvrvs/ezbib.git"
+Issues = "https://github.com/prnvrvs/ezbib/issues"
 
 [tool.setuptools]
 py-modules = ["orcid2bib"]

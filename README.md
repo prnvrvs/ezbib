@@ -1,17 +1,17 @@
 <div align="center">
 
-# 📚 orcid2bibtex
+# 📚 ezbib
 
 **Universal, zero-dependency CLI tool and Python library to convert ORCID profiles and DOIs into clean BibTeX, Markdown, and formatted academic citations.**
 
-[![PyPI Version](https://img.shields.io/pypi/v/orcid2bibtex.svg?color=blue)](https://pypi.org/project/orcid2bibtex/)
+[![PyPI Version](https://img.shields.io/pypi/v/ezbib.svg?color=blue)](https://pypi.org/project/ezbib/)
 [![Python Version](https://img.shields.io/badge/Python-3.7%2B-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Standard%20Library)-success.svg)](https://docs.python.org/3/library/)
 [![Package Format](https://img.shields.io/badge/Architecture-Single--File%20%2B%20Package-orange.svg)](pyproject.toml)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)]()
 
-[Quick Start](#-quick-start) • [Why orcid2bibtex?](#-why-orcid2bibtex) • [Features](#-key-features) • [Installation](#-installation) • [Usage Recipes](#-usage-recipes) • [Citation Styles](#-citation-styles) • [Python API](#-python-api) • [BibLaTeX](#-grant-reporting--biblatex-integration) • [FAQ](#-frequently-asked-questions)
+[Quick Start](#-quick-start) • [Why ezbib?](#-why-ezbib) • [Features](#-key-features) • [Installation](#-installation) • [Usage Recipes](#-usage-recipes) • [Citation Styles](#-citation-styles) • [Python API](#-python-api) • [BibLaTeX](#-grant-reporting--biblatex-integration) • [FAQ](#-frequently-asked-questions)
 
 ---
 
@@ -21,33 +21,33 @@
 
 ```bash
 # 1. Fetch an entire ORCID profile as clean BibTeX
-orcid2bibtex 0000-0002-1825-0097 -o publications.bib
+ezbib 0000-0002-1825-0097 -o publications.bib
 
 # 2. Filter publications from 2021 onwards
-orcid2bibtex 0000-0002-1825-0097 -y 2021 -o recent_papers.bib
+ezbib 0000-0002-1825-0097 -y 2021 -o recent_papers.bib
 
 # 3. Resolve a DOI directly into BibTeX
-orcid2bibtex 10.1016/j.actamat.2025.121319
+ezbib 10.1016/j.actamat.2025.121319
 
 # 4. Generate formatted text citations (Nature, IEEE, APA, ACS, etc.)
-orcid2bibtex 0000-0002-1825-0097 -f text --style nature
+ezbib 0000-0002-1825-0097 -f text --style nature
 
 # 5. Export a clickable Markdown publication list for your CV or website
-orcid2bibtex 0000-0002-1825-0097 -f markdown -o cv_publications.md
+ezbib 0000-0002-1825-0097 -f markdown -o cv_publications.md
 
 # 6. Read DOIs from a pipe or standard input
-cat dois.txt | orcid2bibtex - -o references.bib
+cat dois.txt | ezbib - -o references.bib
 ```
 
-> **Note:** Both `orcid2bibtex` and `orcid2bib` commands are installed as CLI aliases and can be used interchangeably!
+> **Note:** `ezbib`, `orcid2bib`, and `orcid2bibtex` commands are all supported and can be used interchangeably!
 
 ---
 
-## 💡 Why `orcid2bibtex`?
+## 💡 Why `ezbib`?
 
-Raw bibliographic metadata from academic APIs is frequently inconsistent, filled with XML fragments, cluttered with unreviewed preprints, and cumbersome to organize. `orcid2bibtex` was built specifically for researchers, lab managers, and scientific developers who need clean, publication-ready records without installing heavy dependencies.
+Raw bibliographic metadata from academic APIs is frequently inconsistent, filled with XML fragments, cluttered with unreviewed preprints, and cumbersome to organize. `ezbib` was built specifically for researchers, lab managers, and scientific developers who need clean, publication-ready records without installing heavy dependencies.
 
-| Feature | Raw API / Basic Tools | **`orcid2bibtex`** |
+| Feature | Raw API / Basic Tools | **`ezbib`** |
 | :--- | :---: | :---: |
 | **Preprint Deduplication** | ❌ Duplicate entries for arXiv & Journal | ✅ **Intelligent fuzzy deduplication** |
 | **LaTeX MathML Cleaning** | ❌ Raw `<mml:math>` breaks LaTeX compiler | ✅ **Auto-converts MathML to `$\alpha$`, `$\Sigma$`, etc.** |
@@ -98,7 +98,7 @@ flowchart LR
 ## ✨ Key Features
 
 - 📦 **Zero External Dependencies** — Built 100% on the Python Standard Library (`urllib`, `json`, `re`, `html`, `argparse`). No third-party packages required.
-- ⚡ **First-Class Executable & Package** — Install via `pip install orcid2bibtex`, run directly as a standalone executable script (`./orcid2bib.py`), or execute via `python3 -m orcid2bib`.
+- ⚡ **First-Class Executable & Package** — Install via `pip install ezbib`, run directly as a standalone executable script (`./orcid2bib.py`), or execute via `python3 -m orcid2bib`.
 - 🔄 **Smart Input Detection** — Seamlessly parses bare ORCID iDs (`0000-0002-1825-0097`), full ORCID URLs (`https://orcid.org/...`), single/multiple DOIs (`10.1016/...`), and piped standard input (`-`).
 - 🧹 **LaTeX & MathML Sanitization** — Cleans XML entities and converts complex MathML tags into standard LaTeX math (e.g. `<mml:math><mml:mi>α</mml:mi></mml:math>` $\rightarrow$ `$\alpha$`, `$\Sigma$`).
 - 🧠 **Intelligent Preprint Deduplication** — Identifies and suppresses preprint versions (arXiv, bioRxiv, ChemRxiv, Research Square) when peer-reviewed journal versions exist in the profile.
@@ -114,23 +114,23 @@ flowchart LR
 
 ```bash
 # Install from PyPI
-pip install orcid2bibtex
+pip install ezbib
 
 # Or install in an isolated environment with pipx
-pipx install orcid2bibtex
+pipx install ezbib
 ```
 
-Or install the latest unreleased development version directly from GitHub:
+Or install the latest development version directly from GitHub:
 
 ```bash
-pip install git+https://github.com/prnvrvs/orcid2bibtex.git
+pip install git+https://github.com/prnvrvs/ezbib.git
 ```
 
 ### Option 2: Clone and Install Locally
 
 ```bash
-git clone https://github.com/prnvrvs/orcid2bibtex.git
-cd orcid2bibtex
+git clone https://github.com/prnvrvs/ezbib.git
+cd ezbib
 pip install .
 ```
 
@@ -141,11 +141,11 @@ pip install -e .
 
 ### Option 3: Standalone Single-File Script (Zero Installation)
 
-Because `orcid2bibtex` is self-contained with no external dependencies, you can download `orcid2bib.py` directly and execute it anywhere:
+Because `ezbib` is self-contained with no external dependencies, you can download `orcid2bib.py` directly and execute it anywhere:
 
 ```bash
 # Download single script
-curl -O https://raw.githubusercontent.com/prnvrvs/orcid2bibtex/main/orcid2bib.py
+curl -O https://raw.githubusercontent.com/prnvrvs/ezbib/main/orcid2bib.py
 chmod +x orcid2bib.py
 
 # Run directly:
@@ -168,13 +168,13 @@ Fetch all publications for an ORCID profile and output clean BibTeX:
 
 ```bash
 # Print to terminal
-orcid2bibtex 0000-0002-1825-0097
+ezbib 0000-0002-1825-0097
 
 # Save to a .bib file
-orcid2bibtex 0000-0002-1825-0097 -o my_publications.bib
+ezbib 0000-0002-1825-0097 -o my_publications.bib
 
 # Full ORCID URL is also accepted
-orcid2bibtex https://orcid.org/0000-0002-1825-0097 -o my_publications.bib
+ezbib https://orcid.org/0000-0002-1825-0097 -o my_publications.bib
 ```
 
 ---
@@ -185,10 +185,10 @@ Filter works to match grant reporting periods, tenure reviews, or recent activit
 
 ```bash
 # Publications from 2021 to present
-orcid2bibtex 0000-0002-1825-0097 -y 2021 -o recent.bib
+ezbib 0000-0002-1825-0097 -y 2021 -o recent.bib
 
 # Publications within a specific year window (2020-2024)
-orcid2bibtex 0000-0002-1825-0097 --min-year 2020 --max-year 2024 -o phd_papers.bib
+ezbib 0000-0002-1825-0097 --min-year 2020 --max-year 2024 -o phd_papers.bib
 ```
 
 ---
@@ -199,13 +199,13 @@ Retrieve clean BibTeX for one or more DOIs:
 
 ```bash
 # Single DOI
-orcid2bibtex 10.1016/j.actamat.2025.121319
+ezbib 10.1016/j.actamat.2025.121319
 
 # Full DOI URL
-orcid2bibtex https://doi.org/10.1016/j.actamat.2025.121319
+ezbib https://doi.org/10.1016/j.actamat.2025.121319
 
 # Multiple comma-separated DOIs
-orcid2bibtex -d 10.1016/j.actamat.2025.121319,10.1016/j.ijhydene.2025.02.435 -o papers.bib
+ezbib -d 10.1016/j.actamat.2025.121319,10.1016/j.ijhydene.2025.02.435 -o papers.bib
 ```
 
 ---
@@ -216,10 +216,10 @@ Pipe DOIs or ORCID iDs from other command-line tools:
 
 ```bash
 # Pipe a single DOI
-echo "10.1016/j.actamat.2025.121319" | orcid2bibtex -
+echo "10.1016/j.actamat.2025.121319" | ezbib -
 
 # Batch process a text file of DOIs (one per line)
-cat doi_list.txt | orcid2bibtex - -o bibliography.bib
+cat doi_list.txt | ezbib - -o bibliography.bib
 ```
 
 ---
@@ -229,7 +229,7 @@ cat doi_list.txt | orcid2bibtex - -o bibliography.bib
 Generate a numbered Markdown publication list with clickable DOI hyperlinks:
 
 ```bash
-orcid2bibtex 0000-0002-1825-0097 -y 2021 -f markdown -o cv_publications.md
+ezbib 0000-0002-1825-0097 -y 2021 -f markdown -o cv_publications.md
 ```
 
 **Example Markdown Output:**
@@ -248,26 +248,26 @@ Generate pre-formatted citations in your desired journal format:
 
 ```bash
 # Default APA 7th style
-orcid2bibtex 10.1016/j.actamat.2025.121319 -f text
+ezbib 10.1016/j.actamat.2025.121319 -f text
 
 # Nature style
-orcid2bibtex 10.1016/j.actamat.2025.121319 -f text --style nature
+ezbib 10.1016/j.actamat.2025.121319 -f text --style nature
 
 # IEEE style
-orcid2bibtex 10.1016/j.actamat.2025.121319 -f text --style ieee
+ezbib 10.1016/j.actamat.2025.121319 -f text --style ieee
 
 # ACS style
-orcid2bibtex 10.1016/j.actamat.2025.121319 -f text --style acs
+ezbib 10.1016/j.actamat.2025.121319 -f text --style acs
 ```
 
 ---
 
 ### 7. 🔄 Controlling Preprint Deduplication
 
-By default, `orcid2bibtex` suppresses preprints (e.g. arXiv, bioRxiv) if a corresponding journal article exists in the profile. To keep all raw entries without deduplication:
+By default, `ezbib` suppresses preprints (e.g. arXiv, bioRxiv) if a corresponding journal article exists in the profile. To keep all raw entries without deduplication:
 
 ```bash
-orcid2bibtex 0000-0002-1825-0097 --no-dedup -o all_raw_records.bib
+ezbib 0000-0002-1825-0097 --no-dedup -o all_raw_records.bib
 ```
 
 ---
@@ -288,7 +288,7 @@ declare -A LAB_MEMBERS=(
 for NAME in "${!LAB_MEMBERS[@]}"; do
   ORCID="${LAB_MEMBERS[$NAME]}"
   echo "[*] Fetching publications for $NAME ($ORCID)..."
-  orcid2bibtex "$ORCID" -y 2021 -o "${NAME}_publications.bib"
+  ezbib "$ORCID" -y 2021 -o "${NAME}_publications.bib"
 done
 ```
 
@@ -313,9 +313,9 @@ done
 ## 🧭 CLI Command-Line Reference
 
 ```text
-usage: orcid2bibtex [-h] [-d DOI] [-y YEAR] [--max-year YEAR] [-o FILE]
-                    [-f {bibtex,markdown,text,apa}] [-s STYLE] [--no-dedup] [-v]
-                    [target]
+usage: ezbib [-h] [-d DOI] [-y YEAR] [--max-year YEAR] [-o FILE]
+             [-f {bibtex,markdown,text,apa}] [-s STYLE] [--no-dedup] [-v]
+             [target]
 ```
 
 | Argument / Flag | Short | Type | Default | Description |
@@ -335,13 +335,13 @@ usage: orcid2bibtex [-h] [-d DOI] [-y YEAR] [--max-year YEAR] [-o FILE]
 
 ## 🐍 Python API
 
-`orcid2bibtex` can also be imported and used programmatically in any Python 3.7+ application:
+`ezbib` can also be imported and used programmatically in any Python 3.7+ application:
 
 ```python
-import orcid2bib
+import orcid2bib as ezbib
 
 # 1. Query an ORCID profile
-works = orcid2bib.fetch_orcid(
+works = ezbib.fetch_orcid(
     "0000-0002-1825-0097",
     min_year=2021,
     dedup=True
@@ -351,14 +351,14 @@ for work in works:
     print(f"[{work['year']}] {work['title']} (DOI: {work['doi']})")
 
 # 2. Convert DOI to clean, formatted BibTeX
-bibtex_entry = orcid2bib.doi_to_bibtex(
+bibtex_entry = ezbib.doi_to_bibtex(
     "10.1016/j.actamat.2025.121319",
     extra_keywords="quality_assured"
 )
 print(bibtex_entry)
 
 # 3. Format DOI citation into a specific journal style
-nature_citation = orcid2bib.doi_to_text(
+nature_citation = ezbib.doi_to_text(
     "10.1016/j.actamat.2025.121319",
     style="nature"
 )
@@ -369,7 +369,7 @@ print(nature_citation)
 
 ## 📑 Grant Reporting & BibLaTeX Integration
 
-`orcid2bibtex` automatically categorizes works by injecting `keywords = {quality_assured}` for peer-reviewed journal articles and `keywords = {other}` for preprints, conference proceedings, or unreviewed outputs.
+`ezbib` automatically categorizes works by injecting `keywords = {quality_assured}` for peer-reviewed journal articles and `keywords = {other}` for preprints, conference proceedings, or unreviewed outputs.
 
 This makes generating split academic CVs (such as for **DFG**, **EU Horizon Europe**, or **NSF** proposals) straightforward in LaTeX:
 
@@ -425,7 +425,7 @@ pdflatex publication_list.tex
 ## ❓ Frequently Asked Questions
 
 <details>
-<summary><b>Does orcid2bibtex require an ORCID API key or account?</b></summary>
+<summary><b>Does ezbib require an ORCID API key or account?</b></summary>
 <br>
 No. Public ORCID profiles are queried directly through the public ORCID REST API v3.0, and DOI metadata is resolved via Crossref content negotiation without requiring an API key.
 </details>
@@ -433,7 +433,7 @@ No. Public ORCID profiles are queried directly through the public ORCID REST API
 <details>
 <summary><b>What happens if an ORCID publication has no DOI?</b></summary>
 <br>
-If a work in the ORCID record does not have an attached DOI, <code>orcid2bibtex</code> outputs a clear commented placeholder in the BibTeX file:
+If a work in the ORCID record does not have an attached DOI, <code>ezbib</code> outputs a clear commented placeholder in the BibTeX file:
 <pre><code>% Work without DOI: Title of Publication (Year)</code></pre>
 This ensures no entries are silently dropped while keeping your <code>.bib</code> file syntactically valid.
 </details>
