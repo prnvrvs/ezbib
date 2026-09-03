@@ -230,36 +230,36 @@ def build_parser():
         "PRACTICAL USAGE EXAMPLES:",
         "=" * 79,
         "  1. Quick print BibTeX to terminal:",
-        "     python3 orcid2bib.py 0000-0002-3661-5870",
+        "     python3 scripts/orcid2bib.py 0000-0002-1825-0097",
         "",
         "  2. Filter publications from year 2021 onwards and save to .bib:",
-        "     python3 orcid2bib.py 0000-0002-3661-5870 -y 2021 -o my_pubs.bib",
+        "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2021 -o my_pubs.bib",
         "",
         "  3. Filter for a specific year range (e.g. 2021 to 2025):",
-        "     python3 orcid2bib.py 0000-0002-3661-5870 -y 2021 --max-year 2025 -o recent.bib",
+        "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2021 --max-year 2025 -o recent.bib",
         "",
         "  4. Export as a formatted Markdown publication list for CV / Website:",
-        "     python3 orcid2bib.py 0000-0002-3661-5870 -y 2021 -f markdown -o cv_pubs.md",
+        "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2021 -f markdown -o cv_pubs.md",
         "",
         "  5. Include all raw preprints without deduplication:",
-        "     python3 orcid2bib.py 0000-0002-3661-5870 --no-dedup -o all_records.bib",
+        "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 --no-dedup -o all_records.bib",
         "",
         "=" * 79,
         "QUICK TIP - MAKE IT A GLOBAL COMMAND (RUN FROM ANY DIRECTORY):",
         "=" * 79,
         "  Add this line to your ~/.zshrc or ~/.bashrc:",
-        "     alias orcid2bib=\"python3 /Users/pranav/scripts/orcid2bib.py\"",
+        "     alias orcid2bib=\"python3 /Users/pranav/Desktop/notebooks/69f4549982253ebfec0ebfde/scripts/orcid2bib.py\"",
         "  Then run: source ~/.zshrc",
-        "  Now you can simply run: orcid2bib 0000-0002-3661-5870 -y 2021 -o pubs.bib",
+        "  Now you can simply run: orcid2bib 0000-0002-1825-0097 -y 2021 -o pubs.bib",
         "=" * 79
     ])
     parser = argparse.ArgumentParser(
-        prog="python3 orcid2bib.py",
+        prog="python3 scripts/orcid2bib.py",
         description="orcid2bib - Zero-dependency CLI tool to convert any ORCID identifier into clean, formatted BibTeX, Markdown, or Plain Text.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=epilog_text
     )
-    parser.add_argument("orcid", nargs="?", help="Researcher 16-digit ORCID identifier (e.g. 0000-0002-3661-5870 or https://orcid.org/...)")
+    parser.add_argument("orcid", nargs="?", help="Researcher 16-digit ORCID identifier (e.g. 0000-0002-1825-0097 or https://orcid.org/...)")
     parser.add_argument("-y", "--min-year", type=int, default=None, metavar="YEAR", help="Filter publications published in or after this year (e.g. -y 2021)")
     parser.add_argument("--max-year", type=int, default=None, metavar="YEAR", help="Filter publications published up to this year (e.g. --max-year 2025)")
     parser.add_argument("-o", "--output", metavar="FILE", help="Save output directly to a file (e.g. -o publications.bib or -o cv.md)")
