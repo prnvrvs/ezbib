@@ -1,306 +1,354 @@
+<div align="center">
+
 # 📚 orcid2bib
 
-[![Python](https://img.shields.io/badge/Python-3.7%2B-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-![Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Standard%20Library)-brightgreen.svg)
-![Architecture](https://img.shields.io/badge/Architecture-Single--File%20Standalone-orange.svg)
+**Universal, zero-dependency CLI tool and Python library to convert ORCID profiles and DOIs into clean BibTeX, Markdown, and formatted academic citations.**
 
-> A zero-dependency command-line tool for fetching, cleaning, deduplicating, and formatting publication metadata from ORCID iDs and DOIs as BibTeX, Markdown, or styled bibliographies.
+[![Python Version](https://img.shields.io/badge/Python-3.7%2B-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Standard%20Library)-success.svg)](https://docs.python.org/3/library/)
+[![Package Format](https://img.shields.io/badge/Architecture-Single--File%20%2B%20Package-orange.svg)](pyproject.toml)
+[![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)]()
 
-## ⚡ Quick start
+[Quick Start](#-quick-start) • [Features](#-key-features) • [Installation](#-installation) • [Usage Recipes](#-usage-recipes) • [Citation Styles](#-citation-styles) • [Python API](#-python-api) • [BibLaTeX](#-grant-reporting--biblatex-integration) • [FAQ](#-frequently-asked-questions)
+
+---
+
+</div>
+
+## ⚡ Quick Start
 
 ```bash
-# Fetch an entire ORCID profile as BibTeX
-python3 orcid2bib.py 0000-0002-1825-0097 -o publications.bib
+# 1. Fetch an entire ORCID profile as clean BibTeX
+orcid2bib 0000-0002-1825-0097 -o publications.bib
 
-# Keep publications from 2021 onward
-python3 orcid2bib.py 0000-0002-1825-0097 -y 2021 -o recent.bib
+# 2. Filter publications from 2021 onwards
+orcid2bib 0000-0002-1825-0097 -y 2021 -o recent_papers.bib
 
-# Resolve a DOI directly
-python3 orcid2bib.py 10.1016/j.actamat.2025.121319
+# 3. Resolve a DOI directly into BibTeX
+orcid2bib 10.1016/j.actamat.2025.121319
 
-# Generate a formatted bibliography
-python3 orcid2bib.py 0000-0002-1825-0097 -f text --style nature
+# 4. Generate formatted text citations (Nature, IEEE, APA, ACS, etc.)
+orcid2bib 0000-0002-1825-0097 -f text --style nature
 
-# Export a clickable Markdown publication list
-python3 orcid2bib.py 0000-0002-1825-0097 -f markdown -o cv.md
+# 5. Export a clickable Markdown publication list for your CV or website
+orcid2bib 0000-0002-1825-0097 -f markdown -o cv_publications.md
+
+# 6. Read DOIs from a pipe or standard input
+cat dois.txt | orcid2bib - -o references.bib
 ```
 
-## ✨ Features
+---
 
-- 📦 **Zero dependencies** — runs with the Python standard library; no `pip install` required.
-- 🔄 **Flexible input detection** — accepts ORCID iDs, DOIs, and full ORCID/DOI URLs.
-- 🎯 **Publisher metadata lookup** — queries the ORCID v3.0 REST API and uses Crossref HTTP content negotiation for DOI metadata.
-- 🧹 **LaTeX/MathML cleanup** — converts XML/MathML fragments into cleaner LaTeX-compatible text, including expressions such as `$\alpha$-Fe` and `$\Sigma$`.
-- 🧠 **Smart preprint deduplication** — suppresses duplicate preprints when a matching journal publication is present.
-- 🏷️ **Grant-ready BibLaTeX tags** — adds `keywords = {quality_assured}` or `keywords = {other}` for categorized bibliographies.
-- 📤 **Multiple output formats** — produces BibTeX, Markdown, or human-readable citation text.
-- 🎨 **Multiple citation styles** — supports APA, Nature, IEEE, Elsevier, ACS, Chicago, Harvard, and Springer-style output.
+## 🏗️ Architecture & Pipeline
+
+```mermaid
+flowchart LR
+    subgraph Inputs
+        A[ORCID iD / URL]
+        B[DOI / DOI URL / List]
+        C[Standard Input / Pipe]
+    end
+
+    subgraph Core Engine
+        D[ORCID v3.0 REST API]
+        E[Crossref CSL Negotiation]
+        F[LaTeX / MathML Sanitizer]
+        G[Preprint Deduplicator]
+    end
+
+    subgraph Output Formats
+        H[Clean BibLaTeX\n+ Grant Tags]
+        I[Interactive Markdown\nfor CVs / Sites]
+        J[Formatted Text\nNature, IEEE, APA, ACS]
+    end
+
+    A --> D
+    B --> E
+    C --> B
+    D --> F
+    E --> F
+    F --> G
+    G --> H
+    G --> I
+    G --> J
+```
+
+---
+
+## ✨ Key Features
+
+- 📦 **Zero External Dependencies** — Built 100% on the Python Standard Library (`urllib`, `json`, `re`, `argparse`). No heavy HTTP or parsing dependencies needed.
+- ⚡ **First-Class Executable & Package** — Install globally via `pip` / `pipx`, run directly as a standalone executable script (`./orcid2bib.py`), or execute via `python3 -m orcid2bib`.
+- 🔄 **Smart Input Detection** — Seamlessly parses bare ORCID iDs (`0000-0002-1825-0097`), full ORCID URLs (`https://orcid.org/...`), single/multiple DOIs (`10.1016/...`), and piped standard input (`-`).
+- 🧹 **LaTeX & MathML Sanitization** — Cleans XML entities and converts complex MathML tags into standard LaTeX math (e.g. `<mml:math><mml:mi>α</mml:mi></mml:math>` $\rightarrow$ `$\alpha$`, `$\Sigma$`).
+- 🧠 **Intelligent Preprint Deduplication** — Identifies and suppresses preprint versions (arXiv, bioRxiv, ChemRxiv, Research Square) when peer-reviewed journal versions exist in the profile.
+- 🏷️ **Grant-Ready BibLaTeX Categorization** — Injects `keywords = {quality_assured}` or `keywords = {other}` to instantly generate split CV/grant bibliographies (e.g., for DFG, EU Horizon, NSF).
+- 🎨 **8+ Academic Citation Styles** — Outputs styled bibliographies in APA 7th, Nature, IEEE, ACS, Elsevier, Chicago, Harvard, and Springer formats.
+- 📤 **Multiple Export Formats** — Produces structured `.bib`, clickable `.md` lists with DOI links, or styled plain text.
+
+---
 
 ## 🚀 Installation
 
-### 📥 Clone the repository
+### Option 1: Install with `pip` / `pipx` (Recommended)
+
+Install the latest release directly from GitHub:
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/orcid2bib.git
+# Global / virtualenv installation
+pip install git+https://github.com/prnvrvs/orcid2bib.git
+
+# Or isolated installation with pipx
+pipx install git+https://github.com/prnvrvs/orcid2bib.git
+```
+
+### Option 2: Clone and Install Locally
+
+```bash
+git clone https://github.com/prnvrvs/orcid2bib.git
 cd orcid2bib
-chmod +x scripts/orcid2bib.py
+pip install .
 ```
 
-You can then run:
+For editable development mode:
+```bash
+pip install -e .
+```
+
+### Option 3: Standalone Single-File Script (Zero Installation)
+
+Because `orcid2bib` is self-contained with no dependencies, you can download `orcid2bib.py` directly and execute it anywhere:
 
 ```bash
-python3 scripts/orcid2bib.py 0000-0002-1825-0097
+# Download single script
+curl -O https://raw.githubusercontent.com/prnvrvs/orcid2bib/main/orcid2bib.py
+chmod +x orcid2bib.py
+
+# Run directly:
+./orcid2bib.py 0000-0002-1825-0097
 ```
 
-### 🖥️ Optional: create a shell alias
-
-Add the following to `~/.zshrc` or `~/.bashrc`:
+### Option 4: Run as a Python Module
 
 ```bash
-alias orcid2bib="python3 /path/to/orcid2bib/scripts/orcid2bib.py"
+python3 -m orcid2bib 0000-0002-1825-0097
 ```
 
-Reload your shell configuration:
+---
+
+## 📖 Usage Recipes
+
+### 1. 🆔 ORCID Profile Lookup
+
+Fetch all publications for an ORCID profile and output clean BibTeX:
 
 ```bash
-source ~/.zshrc
+# Print to terminal
+orcid2bib 0000-0002-1825-0097
+
+# Save to a .bib file
+orcid2bib 0000-0002-1825-0097 -o my_publications.bib
+
+# Full ORCID URL is also accepted
+orcid2bib https://orcid.org/0000-0002-1825-0097 -o my_publications.bib
 ```
 
-Then run the tool from any directory:
+---
+
+### 2. 📅 Year Filtering
+
+Filter works to match grant reporting periods, tenure reviews, or recent activity:
 
 ```bash
-orcid2bib 0000-0002-1825-0097 -y 2021 -o publications.bib
+# Publications from 2021 to present
+orcid2bib 0000-0002-1825-0097 -y 2021 -o recent.bib
+
+# Publications within a specific year window (2020-2024)
+orcid2bib 0000-0002-1825-0097 --min-year 2020 --max-year 2024 -o phd_papers.bib
 ```
 
-## 💻 Usage
+---
 
-### 🆔 ORCID profile lookup
+### 3. 🔎 Direct DOI Resolution
 
-Print publications to the terminal:
+Retrieve clean BibTeX for one or more DOIs:
 
 ```bash
-python3 scripts/orcid2bib.py 0000-0002-1825-0097
+# Single DOI
+orcid2bib 10.1016/j.actamat.2025.121319
+
+# Full DOI URL
+orcid2bib https://doi.org/10.1016/j.actamat.2025.121319
+
+# Multiple comma-separated DOIs
+orcid2bib -d 10.1016/j.actamat.2025.121319,10.1016/j.ijhydene.2025.02.435 -o papers.bib
 ```
 
-Save them to a BibTeX file:
+---
+
+### 4. 🚰 Standard Input & Shell Pipelines
+
+Pipe DOIs or ORCID iDs from other command-line tools:
 
 ```bash
-python3 scripts/orcid2bib.py 0000-0002-1825-0097 -o my_publications.bib
+# Pipe a single DOI
+echo "10.1016/j.actamat.2025.121319" | orcid2bib -
+
+# Batch process a text file of DOIs (one per line)
+cat doi_list.txt | orcid2bib - -o bibliography.bib
 ```
 
-A full ORCID URL is also accepted:
+---
+
+### 5. 📝 Markdown Export (For CVs & Academic Websites)
+
+Generate a numbered Markdown publication list with clickable DOI hyperlinks:
 
 ```bash
-python3 scripts/orcid2bib.py https://orcid.org/0000-0002-1825-0097
+orcid2bib 0000-0002-1825-0097 -y 2021 -f markdown -o cv_publications.md
 ```
 
-### 🔎 DOI lookup
+**Example Markdown Output:**
+```markdown
+# Publications from ORCID 0000-0002-1825-0097
 
-Resolve a single DOI:
+1. **Hydrogen embrittlement mechanisms in high-strength alloys** (2025) — *Acta Materialia* ([DOI: 10.1016/j.actamat.2025.121319](https://doi.org/10.1016/j.actamat.2025.121319))
+2. **Phase transformation dynamics under extreme strain** (2024) — *Nature Materials* ([DOI: 10.1038/s41563-024-00000-x](https://doi.org/10.1038/s41563-024-00000-x))
+```
+
+---
+
+### 6. 📄 Styled Plain Text Bibliographies
+
+Generate pre-formatted citations in your desired journal format:
 
 ```bash
-python3 scripts/orcid2bib.py 10.1016/j.actamat.2025.121319
+# Default APA 7th style
+orcid2bib 10.1016/j.actamat.2025.121319 -f text
+
+# Nature style
+orcid2bib 10.1016/j.actamat.2025.121319 -f text --style nature
+
+# IEEE style
+orcid2bib 10.1016/j.actamat.2025.121319 -f text --style ieee
+
+# ACS style
+orcid2bib 10.1016/j.actamat.2025.121319 -f text --style acs
 ```
 
-A full DOI URL also works:
+---
+
+### 7. 🔄 Controlling Preprint Deduplication
+
+By default, `orcid2bib` suppresses preprints (e.g. arXiv, bioRxiv) if a corresponding journal article exists in the profile. To keep all raw entries without deduplication:
 
 ```bash
-python3 scripts/orcid2bib.py https://doi.org/10.1016/j.actamat.2025.121319
+orcid2bib 0000-0002-1825-0097 --no-dedup -o all_raw_records.bib
 ```
 
-Use the explicit DOI flag:
+---
+
+### 8. 👥 Batch Processing for Research Teams
+
+Fetch publications for an entire lab or research group using a simple Bash script:
 
 ```bash
-python3 scripts/orcid2bib.py -d 10.1016/j.actamat.2025.121319 -o paper.bib
-```
+#!/usr/bin/env bash
 
-Resolve multiple comma-separated DOIs:
-
-```bash
-python3 scripts/orcid2bib.py \
-  -d 10.1016/j.actamat.2025.121319,10.1016/j.ijhydene.2025.02.435 \
-  -o references.bib
-```
-
-### 📅 Filter by publication year
-
-Keep publications from a minimum year onward:
-
-```bash
-python3 scripts/orcid2bib.py \
-  0000-0002-1825-0097 \
-  --min-year 2021 \
-  -o recent_papers.bib
-```
-
-The short form is equivalent:
-
-```bash
-python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2021 -o recent_papers.bib
-```
-
-Filter to a closed year range:
-
-```bash
-python3 scripts/orcid2bib.py \
-  0000-0002-1825-0097 \
-  --min-year 2020 \
-  --max-year 2024 \
-  -o phd_papers.bib
-```
-
-## 📦 Output formats
-
-### 📚 BibTeX
-
-BibTeX is the default output format:
-
-```bash
-python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2024 -f bibtex
-```
-
-Example:
-
-```bibtex
-@article{Smith_2024,
-  author = {Smith, Jane and Doe, John},
-  title = {Machine learning models for material properties},
-  journal = {Journal of Materials Science},
-  volume = {59},
-  pages = {12048},
-  year = {2024},
-  doi = {10.1007/s10853-024-00000-0},
-  keywords = {quality_assured}
-}
-```
-
-### 📝 Markdown
-
-Generate a numbered Markdown list with clickable DOI links:
-
-```bash
-python3 scripts/orcid2bib.py \
-  0000-0002-1825-0097 \
-  -y 2021 \
-  -f markdown \
-  -o cv_publications.md
-```
-
-This format is useful for CVs, personal websites, and GitHub profile pages.
-
-### 📄 Formatted text
-
-Generate a human-readable bibliography:
-
-```bash
-python3 scripts/orcid2bib.py \
-  0000-0002-1825-0097 \
-  -y 2021 \
-  -f text
-```
-
-Choose a citation style with `--style` / `-s`:
-
-```bash
-python3 scripts/orcid2bib.py \
-  10.1016/j.actamat.2025.121319 \
-  -f text \
-  --style nature
-```
-
-## 🎨 Citation styles
-
-| Style | Flag | Example |
-| --- | --- | --- |
-| APA 7th | `--style apa` | `Smith, J., & Doe, J. (2024). Machine learning models... Journal of Materials Science, 59, 12048.` |
-| Nature | `--style nature` | `1. Smith, J. & Doe, J. Machine learning models... Journal of Materials Science 59, 12048 (2024).` |
-| IEEE | `--style ieee` | `[1] J. Smith and J. Doe, “Machine learning models...,” Journal of Materials Science, vol. 59, 2024.` |
-| Elsevier | `--style elsevier` | `[1] J. Smith, J. Doe, Machine learning models..., Journal of Materials Science 59 (2024) 12048.` |
-| ACS | `--style acs` | `(1) Smith, J.; Doe, J. Machine Learning Models... Journal of Materials Science 2024, 59, 12048.` |
-| Chicago | `--style chicago` | `Smith, Jane, and John Doe. 2024. “Machine Learning Models...” Journal of Materials Science 59.` |
-| Harvard | `--style harvard` | `Smith, J., Doe, J., 2024. Machine learning models... Journal of Materials Science 59, 12048.` |
-| Springer | `--style springer` | `Smith J, Doe J (2024) Machine learning models... Journal of Materials Science 59:12048.` |
-
-APA is the default text style.
-
-## 🔄 Smart preprint deduplication
-
-By default, `orcid2bib` compares preprint titles from sources such as arXiv, ChemRxiv, bioRxiv, and Research Square against journal publications in the same profile.
-
-When a matching peer-reviewed journal article is present, the duplicate preprint is suppressed.
-
-To keep all raw preprints:
-
-```bash
-python3 scripts/orcid2bib.py \
-  0000-0002-1825-0097 \
-  --no-dedup \
-  -o all_raw_records.bib
-```
-
-## 👥 Batch processing
-
-You can generate publication files for multiple researchers with a shell loop:
-
-```bash
-declare -A TEAM=(
-  ["PI"]="0000-0002-1825-0097"
-  ["CoPI"]="0000-0001-5109-3700"
+declare -A LAB_MEMBERS=(
+  ["Prof_Smith"]="0000-0002-1825-0097"
+  ["Dr_Johnson"]="0000-0001-5109-3700"
+  ["Dr_Lee"]="0000-0003-1234-5678"
 )
 
-for NAME in "${!TEAM[@]}"; do
-  ORCID="${TEAM[$NAME]}"
-  echo "Processing $NAME ($ORCID)..."
-  python3 scripts/orcid2bib.py \
-    "$ORCID" \
-    -y 2021 \
-    -o "${NAME}_publications.bib"
+for NAME in "${!LAB_MEMBERS[@]}"; do
+  ORCID="${LAB_MEMBERS[$NAME]}"
+  echo "[*] Fetching publications for $NAME ($ORCID)..."
+  orcid2bib "$ORCID" -y 2021 -o "${NAME}_publications.bib"
 done
 ```
 
-## 🧭 Command-line reference
+---
 
-| Argument | Short flag | Description |
-| --- | :---: | --- |
-| `target` | — | ORCID iD, DOI, or full ORCID/DOI URL; input type is auto-detected |
-| `--doi DOI` | `-d` | Explicit DOI or comma-separated DOI list |
-| `--min-year YEAR` | `-y` | Include publications from this year onward |
-| `--max-year YEAR` | — | Include publications up to this year |
-| `--output FILE` | `-o` | Write output to a file |
-| `--format {bibtex,markdown,text}` | `-f` | Select output format; default is `bibtex` |
-| `--style STYLE` | `-s` | Select citation style for `text` output |
-| `--no-dedup` | — | Disable preprint deduplication |
-| `--help` | `-h` | Show command-line help |
+## 🎨 Citation Styles
+
+| Style | Flag | Example Output |
+| :--- | :--- | :--- |
+| **APA 7th** *(default)* | `-s apa` | Smith, J., & Doe, J. (2024). Machine learning models... *Journal of Materials Science*, 59, 12048. |
+| **Nature** | `-s nature` | 1. Smith, J. & Doe, J. Machine learning models... *Journal of Materials Science* **59**, 12048 (2024). |
+| **IEEE** | `-s ieee` | [1] J. Smith and J. Doe, “Machine learning models...,” *Journal of Materials Science*, vol. 59, 2024. |
+| **Elsevier** | `-s elsevier` | [1] J. Smith, J. Doe, Machine learning models..., *Journal of Materials Science* 59 (2024) 12048. |
+| **ACS** | `-s acs` | (1) Smith, J.; Doe, J. Machine Learning Models... *Journal of Materials Science* **2024**, *59*, 12048. |
+| **Chicago** | `-s chicago` | Smith, Jane, and John Doe. 2024. “Machine Learning Models...” *Journal of Materials Science* 59. |
+| **Harvard** | `-s harvard` | Smith, J., Doe, J., 2024. Machine learning models... *Journal of Materials Science* 59, 12048. |
+| **Springer** | `-s springer` | Smith J, Doe J (2024) Machine learning models... *Journal of Materials Science* 59:12048. |
+| **MLA** | `-s mla` | Smith, Jane, and John Doe. "Machine Learning Models..." *Journal of Materials Science*, vol. 59, 2024. |
+
+---
+
+## 🧭 CLI Command-Line Reference
+
+```text
+usage: orcid2bib [-h] [-d DOI] [-y YEAR] [--max-year YEAR] [-o FILE]
+                 [-f {bibtex,markdown,text,apa}] [-s STYLE] [--no-dedup] [-v]
+                 [target]
+```
+
+| Argument / Flag | Short | Type | Default | Description |
+| :--- | :---: | :---: | :---: | :--- |
+| `target` | — | `str` | `None` | Positional target: ORCID iD, DOI, full URL, or `-` for stdin |
+| `--doi` | `-d` | `str` | `None` | Explicit DOI or comma-separated list of DOIs |
+| `--min-year` | `-y` | `int` | `None` | Include publications published in or after this year |
+| `--max-year` | — | `int` | `None` | Include publications published up to this year |
+| `--output` | `-o` | `str` | `stdout` | Write output to a specified file |
+| `--format` | `-f` | `choice` | `bibtex` | Output format: `bibtex`, `markdown`, `text`, `apa` |
+| `--style` | `-s` | `str` | `apa` | Citation style for `text` format (e.g. `nature`, `ieee`, `acs`) |
+| `--no-dedup` | — | `flag` | `False` | Disable smart preprint deduplication |
+| `--version` | `-v` | `flag` | — | Show program version and exit |
+| `--help` | `-h` | `flag` | — | Show help message and usage examples |
+
+---
 
 ## 🐍 Python API
 
-If `orcid2bib.py` is available on your Python path, its functions can also be imported directly:
+`orcid2bib` can also be imported and used programmatically in any Python 3.7+ application:
 
 ```python
-from orcid2bib import fetch_orcid, doi_to_bibtex, doi_to_text
+import orcid2bib
 
-# Fetch structured works from an ORCID profile
-works = fetch_orcid(
+# 1. Query an ORCID profile
+works = orcid2bib.fetch_orcid(
     "0000-0002-1825-0097",
     min_year=2021,
+    dedup=True
 )
 
-# Fetch BibTeX for a DOI
-bib = doi_to_bibtex(
-    "10.1016/j.actamat.2025.121319"
-)
+for work in works:
+    print(f"[{work['year']}] {work['title']} (DOI: {work['doi']})")
 
-# Fetch a formatted citation
-citation = doi_to_text(
+# 2. Convert DOI to clean, formatted BibTeX
+bibtex_entry = orcid2bib.doi_to_bibtex(
     "10.1016/j.actamat.2025.121319",
-    style="nature",
+    extra_keywords="quality_assured"
 )
+print(bibtex_entry)
+
+# 3. Format DOI citation into a specific journal style
+nature_citation = orcid2bib.doi_to_text(
+    "10.1016/j.actamat.2025.121319",
+    style="nature"
+)
+print(nature_citation)
 ```
 
-## 📑 BibLaTeX integration
+---
 
-Generated BibTeX entries can be separated into categorized publication lists using the injected `keywords` field.
+## 📑 Grant Reporting & BibLaTeX Integration
+
+`orcid2bib` automatically categorizes works by injecting `keywords = {quality_assured}` for peer-reviewed journal articles and `keywords = {other}` for preprints, conference proceedings, or unreviewed outputs.
+
+This makes generating split academic CVs (such as for **DFG**, **EU Horizon Europe**, or **NSF** proposals) straightforward in LaTeX:
 
 ```latex
 \documentclass[11pt,a4paper]{article}
@@ -318,21 +366,21 @@ Generated BibTeX entries can be separated into categorized publication lists usi
   defernumbers=true
 ]{biblatex}
 
-\addbibresource{my_publications.bib}
+\addbibresource{publications.bib}
 
 \begin{document}
 
-\section*{Publications of the Principal Investigator}
+\section*{Principal Investigator — List of Publications}
 \nocite{*}
 
-\subsection*{Quality-Assured Publications}
+\subsection*{Category A: Peer-Reviewed & Quality-Assured Journal Publications}
 \printbibliography[
   keyword=quality_assured,
   heading=none,
   resetnumbers=true
 ]
 
-\subsection*{Other Scientific Outputs}
+\subsection*{Category B: Preprints, Conference Proceedings & Other Works}
 \printbibliography[
   keyword=other,
   heading=none,
@@ -342,49 +390,45 @@ Generated BibTeX entries can be separated into categorized publication lists usi
 \end{document}
 ```
 
-Compile with:
-
+**To compile:**
 ```bash
 pdflatex publication_list.tex
 biber publication_list
 pdflatex publication_list.tex
 ```
 
-## ❓ FAQ
+---
 
-### 🧩 What happens if an ORCID work has no DOI?
+## ❓ Frequently Asked Questions
 
-The tool writes a commented placeholder to the BibTeX output instead of failing:
+<details>
+<summary><b>Does orcid2bib require an ORCID API key or account?</b></summary>
+<br>
+No. Public ORCID profiles are queried directly through the public ORCID REST API v3.0, and DOI metadata is resolved via Crossref content negotiation without requiring an API key.
+</details>
 
-```text
-% Work without DOI: Title (Year)
-```
+<details>
+<summary><b>What happens if an ORCID publication has no DOI?</b></summary>
+<br>
+If a work in the ORCID record does not have an attached DOI, <code>orcid2bib</code> outputs a clear commented placeholder in the BibTeX file:
+<pre><code>% Work without DOI: Title of Publication (Year)</code></pre>
+This ensures no entries are silently dropped while keeping your <code>.bib</code> file syntactically valid.
+</details>
 
-This makes missing DOI records easy to review manually.
+<details>
+<summary><b>How does preprint deduplication work?</b></summary>
+<br>
+Preprints (identified by journal titles containing <code>arxiv</code>, <code>biorxiv</code>, <code>chemrxiv</code>, <code>research square</code> or type <code>PREPRINT</code>) are fuzzy-matched against peer-reviewed articles in the same ORCID profile. If a published journal version exists, the preprint is automatically suppressed unless <code>--no-dedup</code> is specified.
+</details>
 
-### 🔗 Can I use a full ORCID URL?
+<details>
+<summary><b>Can I format citations in styles not listed above?</b></summary>
+<br>
+Yes. Any valid CSL (Citation Style Language) style identifier supported by the Crossref citation service can be passed directly to <code>--style</code> (e.g. <code>--style cell</code>, <code>--style pnas</code>).
+</details>
 
-Yes. Both of these forms are accepted:
-
-```text
-0000-0002-1825-0097
-https://orcid.org/0000-0002-1825-0097
-```
-
-### 🔎 Can I pass a DOI directly?
-
-Yes. A DOI can be provided as the positional target, as a full `doi.org` URL, or through `-d` / `--doi`.
-
-```bash
-python3 scripts/orcid2bib.py 10.1016/j.actamat.2025.121319
-python3 scripts/orcid2bib.py https://doi.org/10.1016/j.actamat.2025.121319
-python3 scripts/orcid2bib.py -d 10.1016/j.actamat.2025.121319
-```
-
-### 🔐 Does it require an ORCID API key?
-
-No. Public ORCID profiles are queried through the public ORCID REST API v3.0 without an API token.
+---
 
 ## 📄 License
 
-Licensed under the [MIT License](LICENSE) for academic, personal, and commercial use.
+This project is licensed under the [MIT License](LICENSE) — feel free to use it in academic, open-source, and commercial projects.

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orcid2bib"
+version = "1.0.0"
+description = "Universal CLI tool to convert any ORCID identifier or DOI into clean BibTeX, Markdown, or Plain Text."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Pranav Ravichandran" }
+]
+keywords = ["orcid", "bibtex", "doi", "bibliography", "academic", "publications", "crossref", "latex"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing :: Markup :: LaTeX",
+]
+requires-python = ">=3.7"
+dependencies = []
+
+[project.scripts]
+orcid2bib = "orcid2bib:main"
+
+[project.urls]
+Homepage = "https://github.com/prnvrvs/orcid2bib"
+Repository = "https://github.com/prnvrvs/orcid2bib.git"
+Issues = "https://github.com/prnvrvs/orcid2bib/issues"
+
+[tool.setuptools]
+py-modules = ["orcid2bib"]
