@@ -37,7 +37,7 @@ python3 orcid2bib.py 0000-0002-1825-0097 -f markdown -o cv.md
 * 🎯 **Publisher Verified:** Queries ORCID v3.0 REST API and Crossref HTTP content negotiation.
 * 🧹 **LaTeX/MathML Sanitizer:** Automatically cleans XML/MathML into clean LaTeX math (`$\alpha$-Fe`, `$\Sigma$`).
 * 🔄 **Smart Deduplication:** Automatically suppresses duplicate preprints when the peer-reviewed journal version exists.
-* 🏷️ **Grant-Ready Tags:** Automatically adds `keywords = {quality_assured}` or `keywords = {other}` for multi-section CV bibliographies (ERC, DFG, NSF).
+* 🏷️ **Grant-Ready Tags:** Automatically adds `keywords = {quality_assured}` or `keywords = {other}` for multi-section CV bibliographies.
 
 ---
 
@@ -443,7 +443,7 @@ This project is licensed under the [MIT License](LICENSE) — free for academic,
 - 🎯 **Publisher-Verified Metadata:** Uses HTTP Content Negotiation with Crossref and the DOI Foundation for 100% accurate citations.
 - 🧹 **LaTeX & MathML Tag Sanitizer:** Automatically cleans XML tags and MathML entities from publisher databases (e.g. converting `<mml:math><mml:mi>α</mml:mi></mml:math>-Fe` into clean LaTeX `$\alpha$-Fe`).
 - 🔄 **Intelligent Preprint Deduplication:** Detects when an author has both an arXiv / preprint record and the final published peer-reviewed journal article, automatically filtering out duplicate preprints.
-- 🏷️ **BibLaTeX Grant Categorization:** Automatically injects `keywords = {quality_assured}` or `keywords = {other}` to enable instant multi-section bibliographies for funding agencies (ERC, DFG, NSF, Horizon Europe).
+- 🏷️ **BibLaTeX Grant Categorization:** Automatically injects `keywords = {quality_assured}` or `keywords = {other}` to enable instant multi-section bibliographies for funding agencies .
 - 📐 **Beautiful Multi-line Formatting:** Indents every bibliographic key with 2 spaces and standard field ordering.
 
 ---
@@ -625,7 +625,7 @@ print("\nGenerated BibTeX:\n", bib_entry)
 
 ## 📑 Integrating with LaTeX & BibLaTeX Grant Proposals
 
-`orcid2bib` is optimized for research grant proposals and CV track-record documents (such as ERC, DFG, NSF, Horizon Europe).
+`orcid2bib` is optimized for research grant proposals and CV track-record documents.
 
 ### Complete Minimal Working Example (`publication_list.tex`):
 
@@ -723,7 +723,7 @@ No. It connects to the open public ORCID REST API v3.0 (`pub.orcid.org`), which 
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE) — free for academic, personal, and commercial use.
-- 🏷️ **BibLaTeX Grant Categorization:** Automatically injects `keywords = {quality_assured}` or `keywords = {other}` to enable instant multi-section bibliographies for funding agencies (ERC, DFG, NSF, Horizon Europe).
+- 🏷️ **BibLaTeX Grant Categorization:** Automatically injects `keywords = {quality_assured}` or `keywords = {other}` to enable instant multi-section bibliographies for funding agencies.
 - 📐 **Beautiful Multi-line Formatting:** Indents every bibliographic key with 2 spaces and standard field ordering.
 
 ---
