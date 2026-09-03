@@ -342,7 +342,7 @@ print("\nGenerated BibTeX:\n", bib_entry)
 
 ## 📑 Integrating with LaTeX & BibLaTeX Grant Proposals
 
-`orcid2bib` is optimized for research grant proposals and CV track-record documents (such as ERC, DFG, NSF, Horizon Europe).
+`orcid2bib` is optimized for research grant proposals and CV track-record documents.
 
 ### Complete Minimal Working Example (`publication_list.tex`):
 
