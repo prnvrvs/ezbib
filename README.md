@@ -147,7 +147,7 @@ MIT License — Free for academic, personal, and commercial use.
 - 🎯 **Publisher-Verified Metadata:** Uses HTTP Content Negotiation with Crossref and the DOI Foundation for 100% accurate citations.
 - 🧹 **LaTeX & MathML Tag Sanitizer:** Automatically cleans XML tags and MathML entities from publisher databases (e.g. converting `<mml:math><mml:mi>α</mml:mi></mml:math>-Fe` into clean LaTeX `$\alpha$-Fe`).
 - 🔄 **Intelligent Preprint Deduplication:** Detects when an author has both an arXiv / preprint record and the final published peer-reviewed journal article, automatically filtering out duplicate preprints.
-- 🏷️ **BibLaTeX Grant Categorization:** Automatically injects `keywords = {quality_assured}` or `keywords = {other}` to enable instant multi-section bibliographies for funding agencies (ERC, DFG, NSF, Horizon Europe).
+- 🏷️ **BibLaTeX Grant Categorization:** Automatically injects `keywords = {quality_assured}` or `keywords = {other}` to enable instant multi-section bibliographies for funding agencies.
 - 📐 **Beautiful Multi-line Formatting:** Indents every bibliographic key with 2 spaces and standard field ordering.
 
 ---
