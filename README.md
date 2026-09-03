@@ -4,39 +4,146 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Standard%20Library)-brightgreen.svg)]()
 [![Architecture](https://img.shields.io/badge/Architecture-Single--File%20Standalone-orange.svg)]()
-[![ORCID](https://img.shields.io/badge/ORCID-v3.0%20API-A6CE39.svg)](https://orcid.org/)
 
-**`orcid2bib`** is a **100% standalone, single-file** command-line tool and Python module to extract, clean, and format academic publications from any **ORCID iD** or **DOI**.
-
-It generates beautifully formatted, indented `.bib` databases, Markdown CVs, and plain text summaries with **zero external dependencies** (`pip` not required).
+> **Universal, zero-dependency CLI tool to extract, clean, and format publications from any ORCID iD or DOI into BibTeX, Markdown, or styled bibliographies.**
 
 ---
 
-## 📑 Table of Contents
+## ⚡ 30-Second Quick Start
 
-1. [Key Features](#-key-features)
-2. [Installation & Single-File Setup](#-installation--single-file-setup)
-3. [Comprehensive CLI Usage Guide](#-comprehensive-cli-usage-guide)
-   - [ORCID Profile Queries](#1-orcid-profile-queries)
-   - [Direct DOI Lookups (Built-in doi2bib)](#2-direct-doi-lookups-built-in-doi2bib)
-   - [Year Filtering](#3-filtering-by-publication-year)
-   - [Output Formats (BibTeX, Markdown, Text)](#4-output-formats)
-   - [Smart Preprint Deduplication](#5-smart-preprint-deduplication)
-   - [Batch Processing Multiple Researchers](#6-batch-processing-multiple-researchers)
-4. [Python API Integration (Library Usage)](#-python-api-integration)
-5. [Integrating with LaTeX & BibLaTeX Grant Proposals](#-integrating-with-latex--biblatex-grant-proposals)
-6. [Command-Line Options Reference](#-command-line-options-reference)
-7. [Troubleshooting & FAQ](#-troubleshooting--faq)
-8. [License](#-license)
+```bash
+# 1. Fetch entire ORCID profile as clean BibTeX
+python3 orcid2bib.py 0000-0002-1825-0097 -o publications.bib
+
+# 2. Filter from 2021 onwards (e.g. for grant 5-year track records)
+python3 orcid2bib.py 0000-0002-1825-0097 -y 2021 -o recent.bib
+
+# 3. Direct DOI lookup (built-in doi2bib)
+python3 orcid2bib.py 10.1016/j.actamat.2025.121319
+
+# 4. Generate formatted text bibliography (APA, Nature, IEEE, etc.)
+python3 orcid2bib.py 0000-0002-1825-0097 -f text --style nature
+
+# 5. Export as a clickable Markdown list (for CVs or personal website)
+python3 orcid2bib.py 0000-0002-1825-0097 -f markdown -o cv.md
+```
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-- 📦 **100% Standalone & Single-File:** Contained completely in `orcid2bib.py`. No setup scripts, package installs, or extra files needed.
-- ⚡ **Zero External Dependencies:** Built purely with the Python Standard Library (`urllib`, `json`, `re`, `argparse`). Works out of the box on any system with Python 3.7+.
-- 🔄 **Universal Auto-Detection (ORCID & DOI):** Pass an ORCID iD or a DOI directly—the tool automatically detects the input type.
-- 🌐 **ORCID Public REST API (v3.0):** Directly queries official ORCID registry records in real time.
+* 📦 **100% Standalone:** Single self-contained Python file. No `pip install` required.
+* 🔄 **Auto-Detects Inputs:** Seamlessly accepts **16-digit ORCID iDs**, **DOIs**, or **full URLs**.
+* 🎯 **Publisher Verified:** Queries ORCID v3.0 REST API and Crossref HTTP content negotiation.
+* 🧹 **LaTeX/MathML Sanitizer:** Automatically cleans XML/MathML into clean LaTeX math (`$\alpha$-Fe`, `$\Sigma$`).
+* 🔄 **Smart Deduplication:** Automatically suppresses duplicate preprints when the peer-reviewed journal version exists.
+* 🏷️ **Grant-Ready Tags:** Automatically adds `keywords = {quality_assured}` or `keywords = {other}` for multi-section CV bibliographies (ERC, DFG, NSF).
+
+---
+
+## 🚀 Installation & Shell Alias
+
+Download the standalone script directly:
+```bash
+curl -O https://raw.githubusercontent.com/yourusername/orcid2bib/main/scripts/orcid2bib.py
+chmod +x orcid2bib.py
+```
+
+*(Optional)* Make it a global command from any terminal directory:
+```bash
+# Add to ~/.zshrc or ~/.bashrc:
+alias orcid2bib="python3 /path/to/orcid2bib.py"
+```
+
+---
+
+## 📖 CLI Flags & Options
+
+| Option | Flag | Description | Example |
+| :--- | :---: | :--- | :--- |
+| **`target`** | — | ORCID ID, DOI, or full URL *(Auto-detected)* | `0000-0002-1825-0097` or `10.1016/...` |
+| **`--doi`** | `-d` | Explicit single DOI or comma-separated list | `-d 10.1016/j.actamat...` |
+| **`--min-year`** | `-y` | Filter publications published in or after this year | `-y 2021` |
+| **`--max-year`** | — | Filter publications published up to this year | `--max-year 2025` |
+| **`--output`** | `-o` | Save output directly to a file | `-o my_pubs.bib` |
+| **`--format`** | `-f` | Output format: `bibtex` *(default)*, `markdown`, `text` | `-f text` |
+| **`--style`** | `-s` | Citation style for text format *(see table below)* | `-s nature` |
+| **`--no-dedup`** | — | Keep preprints even if published in a journal | `--no-dedup` |
+
+---
+
+## 🎨 Supported Formats & Citation Styles
+
+### 1. BibTeX (`-f bibtex` — Default)
+Clean, multi-line indented format with standard field order:
+```bibtex
+@article{Smith_2024,
+  author = {Smith, Jane and Doe, John},
+  title = {Machine learning models for material properties},
+  journal = {Journal of Materials Science},
+  volume = {59},
+  pages = {12048},
+  year = {2024},
+  doi = {10.1007/s10853-024-00000-0},
+  keywords = {quality_assured}
+}
+```
+
+### 2. Formatted Academic Styles (`-f text --style <NAME>`)
+
+| Style (`-s`) | Publisher / Standard | Sample Output |
+| :--- | :--- | :--- |
+| **`apa`** *(default)* | APA 7th Edition | `Smith, J., & Doe, J. (2024). Machine learning models... Journal of Materials Science, 59, 12048.` |
+| **`nature`** | Nature Group | `1. Smith, J. & Doe, J. Machine learning models... Journal of Materials Science 59, 12048 (2024).` |
+| **`ieee`** | IEEE | `[1] J. Smith and J. Doe, “Machine learning models...,” Journal of Materials Science, vol. 59, 2024.` |
+| **`elsevier`** | Elsevier / *Acta* | `[1] J. Smith, J. Doe, Machine learning models..., Journal of Materials Science 59 (2024) 12048.` |
+| **`acs`** | ACS Journals | `(1) Smith, J.; Doe, J. Machine Learning Models... Journal of Materials Science 2024, 59, 12048.` |
+| **`chicago`** | Chicago (Author-Date)| `Smith, Jane, and John Doe. 2024. “Machine Learning Models...” Journal of Materials Science 59.` |
+| **`harvard`** | Harvard Format | `Smith, J., Doe, J., 2024. Machine learning models... Journal of Materials Science 59, 12048.` |
+| **`springer`** | Springer Nature | `Smith J, Doe J (2024) Machine learning models... Journal of Materials Science 59:12048.` |
+
+---
+
+## 🐍 Python API Usage
+
+```python
+from orcid2bib import fetch_orcid, doi_to_bibtex, doi_to_text
+
+# Fetch all works from an ORCID profile
+works = fetch_orcid("0000-0002-1825-0097", min_year=2021)
+
+# Fetch clean BibTeX for a DOI
+bib = doi_to_bibtex("10.1016/j.actamat.2025.121319")
+
+# Fetch formatted Nature citation
+citation = doi_to_text("10.1016/j.actamat.2025.121319", style="nature")
+```
+
+---
+
+## 📑 LaTeX / BibLaTeX Grant Integration
+
+Use the generated `.bib` file to compile categorized publication sections:
+
+```latex
+\usepackage[backend=biber,style=numeric,sorting=ydnt,defernumbers=true]{biblatex}
+\addbibresource{publications.bib}
+
+\begin{document}
+\nocite{*}
+\subsection*{Quality-Assured Journal Publications}
+\printbibliography[keyword=quality_assured,heading=none,resetnumbers=true]
+
+\subsection*{Preprints and Other Works}
+\printbibliography[keyword=other,heading=none,resetnumbers=true]
+\end{document}
+```
+
+---
+
+## 📄 License
+
+MIT License — Free for academic, personal, and commercial use.
 - 🎯 **Publisher-Verified Metadata:** Uses HTTP Content Negotiation with Crossref and the DOI Foundation for 100% accurate citations.
 - 🧹 **LaTeX & MathML Tag Sanitizer:** Automatically cleans XML tags and MathML entities from publisher databases (e.g. converting `<mml:math><mml:mi>α</mml:mi></mml:math>-Fe` into clean LaTeX `$\alpha$-Fe`).
 - 🔄 **Intelligent Preprint Deduplication:** Detects when an author has both an arXiv / preprint record and the final published peer-reviewed journal article, automatically filtering out duplicate preprints.
