@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "orcid2bib"
+name = "orcid2bibtex"
 version = "1.0.0"
 description = "Universal CLI tool to convert any ORCID identifier or DOI into clean BibTeX, Markdown, or Plain Text."
 readme = "README.md"
@@ -35,11 +35,12 @@ dependencies = []
 
 [project.scripts]
 orcid2bib = "orcid2bib:main"
+orcid2bibtex = "orcid2bib:main"
 
 [project.urls]
-Homepage = "https://github.com/prnvrvs/orcid2bib"
-Repository = "https://github.com/prnvrvs/orcid2bib.git"
-Issues = "https://github.com/prnvrvs/orcid2bib/issues"
+Homepage = "https://github.com/prnvrvs/orcid2bibtex"
+Repository = "https://github.com/prnvrvs/orcid2bibtex.git"
+Issues = "https://github.com/prnvrvs/orcid2bibtex/issues"
 
 [tool.setuptools]
 py-modules = ["orcid2bib"]

@@ -1,9 +1,10 @@
 <div align="center">
 
-# 📚 orcid2bib
+# 📚 orcid2bibtex
 
 **Universal, zero-dependency CLI tool and Python library to convert ORCID profiles and DOIs into clean BibTeX, Markdown, and formatted academic citations.**
 
+[![PyPI Version](https://img.shields.io/pypi/v/orcid2bibtex.svg?color=blue)](https://pypi.org/project/orcid2bibtex/)
 [![Python Version](https://img.shields.io/badge/Python-3.7%2B-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Standard%20Library)-success.svg)](https://docs.python.org/3/library/)
@@ -37,6 +38,8 @@ orcid2bib 0000-0002-1825-0097 -f markdown -o cv_publications.md
 # 6. Read DOIs from a pipe or standard input
 cat dois.txt | orcid2bib - -o references.bib
 ```
+
+*(Note: Both `orcid2bib` and `orcid2bibtex` commands can be used interchangeably!)*
 
 ---
 
@@ -78,12 +81,12 @@ flowchart LR
 
 ## ✨ Key Features
 
-- 📦 **Zero External Dependencies** — Built 100% on the Python Standard Library (`urllib`, `json`, `re`, `argparse`). No heavy HTTP or parsing dependencies needed.
-- ⚡ **First-Class Executable & Package** — Install globally via `pip` / `pipx`, run directly as a standalone executable script (`./orcid2bib.py`), or execute via `python3 -m orcid2bib`.
+- 📦 **Zero External Dependencies** — Built 100% on the Python Standard Library (`urllib`, `json`, `re`, `html`, `argparse`). No heavy third-party packages required.
+- ⚡ **First-Class Executable & Package** — Install via `pip install orcid2bibtex`, run directly as a standalone executable script (`./orcid2bib.py`), or execute via `python3 -m orcid2bib`.
 - 🔄 **Smart Input Detection** — Seamlessly parses bare ORCID iDs (`0000-0002-1825-0097`), full ORCID URLs (`https://orcid.org/...`), single/multiple DOIs (`10.1016/...`), and piped standard input (`-`).
 - 🧹 **LaTeX & MathML Sanitization** — Cleans XML entities and converts complex MathML tags into standard LaTeX math (e.g. `<mml:math><mml:mi>α</mml:mi></mml:math>` $\rightarrow$ `$\alpha$`, `$\Sigma$`).
 - 🧠 **Intelligent Preprint Deduplication** — Identifies and suppresses preprint versions (arXiv, bioRxiv, ChemRxiv, Research Square) when peer-reviewed journal versions exist in the profile.
-- 🏷️ **Grant-Ready BibLaTeX Categorization** — Injects `keywords = {quality_assured}` or `keywords = {other}` to instantly generate split CV/grant bibliographies (e.g., for DFG, EU Horizon, NSF).
+- 🏷️ **Grant-Ready BibLaTeX Categorization** — Injects `keywords = {quality_assured}` or `keywords = {other}` to instantly generate split CV/grant bibliographies (e.g., for DFG, EU Horizon Europe, and NSF).
 - 🎨 **8+ Academic Citation Styles** — Outputs styled bibliographies in APA 7th, Nature, IEEE, ACS, Elsevier, Chicago, Harvard, and Springer formats.
 - 📤 **Multiple Export Formats** — Produces structured `.bib`, clickable `.md` lists with DOI links, or styled plain text.
 
@@ -93,21 +96,25 @@ flowchart LR
 
 ### Option 1: Install with `pip` / `pipx` (Recommended)
 
-Install the latest release directly from GitHub:
+```bash
+# Install from PyPI
+pip install orcid2bibtex
+
+# Or install in an isolated environment with pipx
+pipx install orcid2bibtex
+```
+
+Or install the latest unreleased version directly from GitHub:
 
 ```bash
-# Global / virtualenv installation
-pip install git+https://github.com/prnvrvs/orcid2bib.git
-
-# Or isolated installation with pipx
-pipx install git+https://github.com/prnvrvs/orcid2bib.git
+pip install git+https://github.com/prnvrvs/orcid2bibtex.git
 ```
 
 ### Option 2: Clone and Install Locally
 
 ```bash
-git clone https://github.com/prnvrvs/orcid2bib.git
-cd orcid2bib
+git clone https://github.com/prnvrvs/orcid2bibtex.git
+cd orcid2bibtex
 pip install .
 ```
 
@@ -118,11 +125,11 @@ pip install -e .
 
 ### Option 3: Standalone Single-File Script (Zero Installation)
 
-Because `orcid2bib` is self-contained with no dependencies, you can download `orcid2bib.py` directly and execute it anywhere:
+Because `orcid2bib` is self-contained with no external dependencies, you can download `orcid2bib.py` directly and execute it anywhere:
 
 ```bash
 # Download single script
-curl -O https://raw.githubusercontent.com/prnvrvs/orcid2bib/main/orcid2bib.py
+curl -O https://raw.githubusercontent.com/prnvrvs/orcid2bibtex/main/orcid2bib.py
 chmod +x orcid2bib.py
 
 # Run directly:
