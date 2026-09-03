@@ -45,6 +45,7 @@ if missing or sys.version_info < (3, 7):
     sys.exit(1)
 
 import argparse
+import html
 import json
 import os
 import re
@@ -57,15 +58,20 @@ USER_AGENT = f"orcid2bib/{__version__} (Academic Research Tool; mailto:academic@
 
 
 def sanitize_latex(text):
-    """Sanitize XML/MathML fragments into clean LaTeX text."""
+    """Sanitize XML/MathML fragments and entities into clean LaTeX text."""
     if not text:
         return ""
-    text = re.sub(r"<mml:math.*?<mml:mi>α</mml:mi>.*?</mml:math>", lambda m: r"$\alpha$", text, flags=re.DOTALL)
-    text = re.sub(r"<mml:math.*?<mml:mi>β</mml:mi>.*?</mml:math>", lambda m: r"$\beta$", text, flags=re.DOTALL)
-    text = re.sub(r"<mml:math.*?<mml:mi>γ</mml:mi>.*?</mml:math>", lambda m: r"$\gamma$", text, flags=re.DOTALL)
-    text = re.sub(r"<mml:math.*?<mml:mi>Σ</mml:mi>.*?</mml:math>", lambda m: r"$\Sigma$", text, flags=re.DOTALL)
+    text = str(text)
+    # Convert common MathML entities / tags to LaTeX
+    text = re.sub(r"<mml:math.*?<mml:mi>α</mml:mi>.*?</mml:math>", r"$\\alpha$", text, flags=re.DOTALL)
+    text = re.sub(r"<mml:math.*?<mml:mi>β</mml:mi>.*?</mml:math>", r"$\\beta$", text, flags=re.DOTALL)
+    text = re.sub(r"<mml:math.*?<mml:mi>γ</mml:mi>.*?</mml:math>", r"$\\gamma$", text, flags=re.DOTALL)
+    text = re.sub(r"<mml:math.*?<mml:mi>Σ</mml:mi>.*?</mml:math>", r"$\\Sigma$", text, flags=re.DOTALL)
+    text = re.sub(r"<mml:math.*?<mml:mi>σ</mml:mi>.*?</mml:math>", r"$\\sigma$", text, flags=re.DOTALL)
+    # Strip remaining XML/HTML tags
     text = re.sub(r"<[^>]+>", "", text)
-    text = text.replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+    # Unescape HTML entities (&amp;, &lt;, &gt;, &ndash;, &#945;, etc.)
+    text = html.unescape(text)
     return text.strip()
 
 
@@ -213,7 +219,8 @@ def fetch_orcid(orcid_id, min_year=None, max_year=None, dedup=True):
         if not summaries:
             continue
         w = summaries[0]
-        title = sanitize_latex(w.get("title", {}).get("title", {}).get("value", "Untitled"))
+        title_obj = (w.get("title") or {}).get("title") or {}
+        title = sanitize_latex(title_obj.get("value", "Untitled"))
 
         pub_year = None
         pub_date = w.get("publication-date")
@@ -228,7 +235,8 @@ def fetch_orcid(orcid_id, min_year=None, max_year=None, dedup=True):
         wtype = w.get("type", "JOURNAL_ARTICLE")
 
         doi = None
-        for ext in w.get("external-ids", {}).get("external-id", []):
+        ext_ids = (w.get("external-ids") or {}).get("external-id", [])
+        for ext in ext_ids:
             if ext.get("external-id-type", "").lower() == "doi":
                 doi = ext.get("external-id-value")
                 break
