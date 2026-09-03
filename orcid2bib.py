@@ -224,24 +224,32 @@ def fetch_orcid(orcid_id, min_year=None, max_year=None, dedup=True):
 
     return filtered_works
 
+def is_doi(text):
+    clean = text.strip()
+    return clean.startswith("10.") or "doi.org/10." in clean
+
 def build_parser():
     epilog_text = chr(10).join([
         "=" * 79,
         "PRACTICAL USAGE EXAMPLES:",
         "=" * 79,
-        "  1. Quick print BibTeX to terminal:",
+        "  1. Fetch all works for an ORCID profile:",
         "     python3 scripts/orcid2bib.py 0000-0002-1825-0097",
         "",
         "  2. Filter publications from year 2021 onwards and save to .bib:",
         "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2021 -o my_pubs.bib",
         "",
-        "  3. Filter for a specific year range (e.g. 2021 to 2025):",
-        "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2021 --max-year 2025 -o recent.bib",
+        "  3. Fetch BibTeX for a single DOI directly:",
+        "     python3 scripts/orcid2bib.py 10.1016/j.actamat.2025.121319",
+        "     python3 scripts/orcid2bib.py https://doi.org/10.1016/j.actamat.2025.121319",
         "",
-        "  4. Export as a formatted Markdown publication list for CV / Website:",
+        "  4. Fetch BibTeX using the explicit --doi / -d flag:",
+        "     python3 scripts/orcid2bib.py -d 10.1016/j.actamat.2025.121319 -o paper.bib",
+        "",
+        "  5. Export as a formatted Markdown publication list for CV / Website:",
         "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 -y 2021 -f markdown -o cv_pubs.md",
         "",
-        "  5. Include all raw preprints without deduplication:",
+        "  6. Include all raw preprints without deduplication:",
         "     python3 scripts/orcid2bib.py 0000-0002-1825-0097 --no-dedup -o all_records.bib",
         "",
         "=" * 79,
@@ -255,11 +263,12 @@ def build_parser():
     ])
     parser = argparse.ArgumentParser(
         prog="python3 scripts/orcid2bib.py",
-        description="orcid2bib - Zero-dependency CLI tool to convert any ORCID identifier into clean, formatted BibTeX, Markdown, or Plain Text.",
+        description="orcid2bib - Universal CLI tool to convert any ORCID identifier or DOI into clean BibTeX, Markdown, or Plain Text.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=epilog_text
     )
-    parser.add_argument("orcid", nargs="?", help="Researcher 16-digit ORCID identifier (e.g. 0000-0002-1825-0097 or https://orcid.org/...)")
+    parser.add_argument("target", nargs="?", help="ORCID identifier (e.g. 0000-0002-1825-0097) OR direct DOI (e.g. 10.1016/j.actamat.2025.121319)")
+    parser.add_argument("-d", "--doi", help="Single DOI or comma-separated list of DOIs to fetch directly")
     parser.add_argument("-y", "--min-year", type=int, default=None, metavar="YEAR", help="Filter publications published in or after this year (e.g. -y 2021)")
     parser.add_argument("--max-year", type=int, default=None, metavar="YEAR", help="Filter publications published up to this year (e.g. --max-year 2025)")
     parser.add_argument("-o", "--output", metavar="FILE", help="Save output directly to a file (e.g. -o publications.bib or -o cv.md)")
@@ -272,44 +281,59 @@ def main():
     parser = build_parser()
     args = parser.parse_args()
 
-    if not args.orcid:
+    target = args.doi or args.target
+
+    if not target:
         parser.print_help()
         sys.exit(0)
 
-    print(f"[*] Fetching works from ORCID: {args.orcid}...", file=sys.stderr)
-    works = fetch_orcid(args.orcid, min_year=args.min_year, max_year=args.max_year, dedup=not args.no_dedup)
-    print(f"[+] Found {len(works)} publications (filtered).", file=sys.stderr)
+    # 1. Direct DOI mode
+    if args.doi or is_doi(target):
+        dois = [d.strip() for d in target.split(",") if d.strip()]
+        results = []
+        for d in dois:
+            print(f"[*] Fetching BibTeX for DOI: {d}...", file=sys.stderr)
+            bib = doi_to_bibtex(d)
+            results.append(bib)
+            time.sleep(0.15)
+        output = "\n\n".join(results) + "\n"
 
-    if args.format == "bibtex":
-        bib_entries = []
-        for w in works:
-            if w["doi"]:
-                print(f"  -> Fetching BibTeX for DOI: {w['doi']}", file=sys.stderr)
-                b = doi_to_bibtex(w["doi"], extra_keywords=w["category"])
-                bib_entries.append(b)
-                time.sleep(0.15)
-            else:
-                bib_entries.append(f"% Work without DOI: {w['title']} ({w['year']})")
-        output = "\n\n".join(bib_entries) + "\n"
-
-    elif args.format == "markdown":
-        lines = [f"# Publications from ORCID {args.orcid}\n"]
-        for i, w in enumerate(works, 1):
-            y_str = f"({w['year']})" if w["year"] else ""
-            doi_str = f"[DOI: {w['doi']}](https://doi.org/{w['doi']})" if w["doi"] else "No DOI"
-            lines.append(f"{i}. **{w['title']}** {y_str} — *{w['journal'] or 'N/A'}* ({doi_str})")
-        output = "\n".join(lines) + "\n"
-
+    # 2. ORCID profile mode
     else:
-        lines = []
-        for i, w in enumerate(works, 1):
-            lines.append(f"{i}. [{w['year'] or 'N/A'}] {w['title']}\n   Journal: {w['journal'] or 'N/A'}\n   DOI: {w['doi'] or 'N/A'}\n")
-        output = "\n".join(lines)
+        print(f"[*] Fetching works from ORCID: {target}...", file=sys.stderr)
+        works = fetch_orcid(target, min_year=args.min_year, max_year=args.max_year, dedup=not args.no_dedup)
+        print(f"[+] Found {len(works)} publications (filtered).", file=sys.stderr)
+
+        if args.format == "bibtex":
+            bib_entries = []
+            for w in works:
+                if w["doi"]:
+                    print(f"  -> Fetching BibTeX for DOI: {w['doi']}", file=sys.stderr)
+                    b = doi_to_bibtex(w["doi"], extra_keywords=w["category"])
+                    bib_entries.append(b)
+                    time.sleep(0.15)
+                else:
+                    bib_entries.append(f"% Work without DOI: {w['title']} ({w['year']})")
+            output = "\n\n".join(bib_entries) + "\n"
+
+        elif args.format == "markdown":
+            lines = [f"# Publications from ORCID {target}\n"]
+            for i, w in enumerate(works, 1):
+                y_str = f"({w['year']})" if w["year"] else ""
+                doi_str = f"[DOI: {w['doi']}](https://doi.org/{w['doi']})" if w["doi"] else "No DOI"
+                lines.append(f"{i}. **{w['title']}** {y_str} — *{w['journal'] or 'N/A'}* ({doi_str})")
+            output = "\n".join(lines) + "\n"
+
+        else:
+            lines = []
+            for i, w in enumerate(works, 1):
+                lines.append(f"{i}. [{w['year'] or 'N/A'}] {w['title']}\n   Journal: {w['journal'] or 'N/A'}\n   DOI: {w['doi'] or 'N/A'}\n")
+            output = "\n".join(lines)
 
     if args.output:
         with open(args.output, "w", encoding="utf-8") as f:
             f.write(output)
-        print(f"[+] Saved {len(works)} entries to {args.output}", file=sys.stderr)
+        print(f"[+] Saved output to {args.output}", file=sys.stderr)
     else:
         print(output)
 
