@@ -148,9 +148,32 @@ def pretty_format_bibtex(raw_bib, extra_keywords=None):
     return f"@{entry_type}{{{cite_key},\n{fields_joined}\n}}"
 
 
+def clean_doi_str(doi):
+    """Normalize and extract a clean DOI string from various URL and string formats."""
+    if not doi:
+        return ""
+    d = str(doi).strip()
+    d = urllib.parse.unquote(d)
+    # Remove URL prefixes and DOI URI schemes
+    d = re.sub(r"^https?://(dx\.)?doi\.org/", "", d, flags=re.IGNORECASE)
+    d = re.sub(r"^doi:\s*", "", d, flags=re.IGNORECASE)
+    # Strip any trailing punctuation often copied from text or markdown links
+    d = d.rstrip(".,;)>]}")
+    match = re.search(r"(10\.\d{4,9}/[-._;()/:A-Za-z0-9]+)", d)
+    if match:
+        return match.group(1).strip()
+    return d.strip()
+
+
+def is_doi(text):
+    """Determine whether an input string is a DOI or DOI URL."""
+    clean = clean_doi_str(text)
+    return clean.startswith("10.")
+
+
 def doi_to_bibtex(doi, extra_keywords=None):
     """Fetch BibTeX entry for a given DOI via Crossref content negotiation."""
-    clean_doi = doi.strip().replace("https://doi.org/", "").replace("http://dx.doi.org/", "").strip()
+    clean_doi = clean_doi_str(doi)
     url = f"https://doi.org/{clean_doi}"
     req = urllib.request.Request(
         url,
@@ -181,7 +204,7 @@ STYLE_MAP = {
 def doi_to_text(doi, style="apa"):
     """Fetch formatted citation string for a DOI in a specific CSL style."""
     csl_style = STYLE_MAP.get(style.lower().strip(), style.strip())
-    clean_doi = doi.strip().replace("https://doi.org/", "").replace("http://dx.doi.org/", "").strip()
+    clean_doi = clean_doi_str(doi)
     url = f"https://doi.org/{clean_doi}"
     req = urllib.request.Request(
         url,
@@ -282,12 +305,6 @@ def fetch_orcid(orcid_id, min_year=None, max_year=None, dedup=True):
         filtered_works.append(w)
 
     return filtered_works
-
-
-def is_doi(text):
-    """Determine whether an input string is a DOI or DOI URL."""
-    clean = text.strip()
-    return clean.startswith("10.") or "doi.org/10." in clean
 
 
 def build_parser():

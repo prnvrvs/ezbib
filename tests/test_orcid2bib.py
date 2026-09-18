@@ -58,6 +58,18 @@ class TestDoiDetection(unittest.TestCase):
         self.assertTrue(orcid2bib.is_doi("https://doi.org/10.1016/j.actamat.2025.121319"))
         self.assertTrue(orcid2bib.is_doi("http://dx.doi.org/10.1016/j.actamat.2025.121319"))
 
+    def test_doi_with_parentheses(self):
+        self.assertTrue(orcid2bib.is_doi("10.1016/S1359-6454(02)00577-3"))
+        self.assertTrue(orcid2bib.is_doi("https://doi.org/10.1016/S1359-6454(02)00577-3"))
+        self.assertEqual(
+            orcid2bib.clean_doi_str("https://doi.org/10.1016/S1359-6454(02)00577-3"),
+            "10.1016/S1359-6454(02)00577-3",
+        )
+        self.assertEqual(
+            orcid2bib.clean_doi_str("doi: 10.1016/S1359-6454(02)00577-3."),
+            "10.1016/S1359-6454(02)00577-3",
+        )
+
     def test_orcid_is_not_doi(self):
         self.assertFalse(orcid2bib.is_doi("0000-0002-1825-0097"))
         self.assertFalse(orcid2bib.is_doi("https://orcid.org/0000-0002-1825-0097"))
