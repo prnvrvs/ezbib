@@ -154,6 +154,8 @@ def clean_doi_str(doi):
         return ""
     d = str(doi).strip()
     d = urllib.parse.unquote(d)
+    # Strip surrounding quotes, backticks, angle brackets
+    d = d.strip("'\"`<> \t\r\n")
     # Remove URL prefixes and DOI URI schemes
     d = re.sub(r"^https?://(dx\.)?doi\.org/", "", d, flags=re.IGNORECASE)
     d = re.sub(r"^doi:\s*", "", d, flags=re.IGNORECASE)
@@ -161,7 +163,7 @@ def clean_doi_str(doi):
     d = d.rstrip(".,;)>]}")
     match = re.search(r"(10\.\d{4,9}/[-._;()/:A-Za-z0-9]+)", d)
     if match:
-        return match.group(1).strip()
+        return match.group(1).strip().rstrip(".,;)>]}")
     return d.strip()
 
 
@@ -314,40 +316,40 @@ def build_parser():
         "PRACTICAL USAGE EXAMPLES:",
         "=" * 79,
         "  1. Fetch all works for an ORCID profile:",
-        "     orcid2bib 0000-0002-1825-0097",
+        "     ezbib 0000-0002-1825-0097",
         "",
         "  2. Filter publications from year 2021 onwards and save to .bib:",
-        "     orcid2bib 0000-0002-1825-0097 -y 2021 -o my_pubs.bib",
+        "     ezbib 0000-0002-1825-0097 -y 2021 -o my_pubs.bib",
         "",
         "  3. Fetch BibTeX for a single DOI directly:",
-        "     orcid2bib 10.1016/j.actamat.2025.121319",
-        "     orcid2bib https://doi.org/10.1016/j.actamat.2025.121319",
+        "     ezbib 10.1016/j.actamat.2025.121319",
+        "     ezbib https://doi.org/10.1016/j.actamat.2025.121319",
         "",
         "  4. Fetch BibTeX using the explicit --doi / -d flag:",
-        "     orcid2bib -d 10.1016/j.actamat.2025.121319 -o paper.bib",
+        "     ezbib -d 10.1016/j.actamat.2025.121319 -o paper.bib",
         "",
         "  5. Print formatted bibliography in APA, Nature, IEEE, or ACS style:",
-        "     orcid2bib 0000-0002-1825-0097 -y 2021 -f text",
-        "     orcid2bib 10.1016/j.actamat.2025.121319 -f text --style nature",
-        "     orcid2bib 10.1016/j.actamat.2025.121319 -f text --style ieee",
-        "     orcid2bib 10.1016/j.actamat.2025.121319 -f text --style acs",
+        "     ezbib 0000-0002-1825-0097 -y 2021 -f text",
+        "     ezbib 10.1016/j.actamat.2025.121319 -f text --style nature",
+        "     ezbib 10.1016/j.actamat.2025.121319 -f text --style ieee",
+        "     ezbib 10.1016/j.actamat.2025.121319 -f text --style acs",
         "",
         "  6. Export as a formatted Markdown publication list for CV / Website:",
-        "     orcid2bib 0000-0002-1825-0097 -y 2021 -f markdown -o cv_pubs.md",
+        "     ezbib 0000-0002-1825-0097 -y 2021 -f markdown -o cv_pubs.md",
         "",
         "  7. Include all raw preprints without deduplication:",
-        "     orcid2bib 0000-0002-1825-0097 --no-dedup -o all_records.bib",
+        "     ezbib 0000-0002-1825-0097 --no-dedup -o all_records.bib",
         "=" * 79,
     ])
     parser = argparse.ArgumentParser(
-        prog="orcid2bib",
-        description="orcid2bib - Universal CLI tool to convert any ORCID identifier or DOI into clean BibTeX, Markdown, or Plain Text.",
+        prog="ezbib",
+        description="ezbib - Universal CLI tool to convert any ORCID identifier or DOI into clean BibTeX, Markdown, or Plain Text.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=epilog_text,
     )
     parser.add_argument(
         "target",
-        nargs="?",
+        nargs="*",
         help="ORCID identifier (e.g. 0000-0002-1825-0097) OR direct DOI (e.g. 10.1016/j.actamat.2025.121319). Use '-' to read from standard input.",
     )
     parser.add_argument("-d", "--doi", help="Single DOI or comma-separated list of DOIs to fetch directly")
@@ -389,15 +391,22 @@ def main(argv=None):
         parser = build_parser()
         args = parser.parse_args(argv)
 
-        target = args.doi or args.target
+        target = args.doi or (" ".join(args.target).strip() if isinstance(args.target, list) else (args.target or ""))
 
         # Handle stdin if target is '-'
         if target == "-":
             target = sys.stdin.read().strip()
 
-        if not target:
-            parser.print_help()
-            return 0
+        # If no target was passed, prompt interactively if in a terminal
+        if not target and not args.doi:
+            if sys.stdin.isatty():
+                try:
+                    target = input("Enter ORCID iD or DOI (or press Enter to exit): ").strip()
+                except (EOFError, KeyboardInterrupt):
+                    return 0
+            if not target:
+                parser.print_help()
+                return 0
 
         # 1. Direct DOI mode
         if args.doi or is_doi(target):

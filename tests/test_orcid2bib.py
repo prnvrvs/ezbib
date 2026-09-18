@@ -79,7 +79,7 @@ class TestCliParser(unittest.TestCase):
     def test_parser_defaults(self):
         parser = orcid2bib.build_parser()
         args = parser.parse_args(["0000-0002-1825-0097"])
-        self.assertEqual(args.target, "0000-0002-1825-0097")
+        self.assertEqual(args.target, ["0000-0002-1825-0097"])
         self.assertEqual(args.format, "bibtex")
         self.assertEqual(args.style, "apa")
         self.assertFalse(args.no_dedup)
