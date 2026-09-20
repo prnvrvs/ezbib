@@ -34,9 +34,7 @@ requires-python = ">=3.7"
 dependencies = []
 
 [project.scripts]
-ezbib = "orcid2bib:main"
-orcid2bib = "orcid2bib:main"
-orcid2bibtex = "orcid2bib:main"
+ezbib = "ezbib:main"
 
 [project.urls]
 Homepage = "https://github.com/prnvrvs/ezbib"
@@ -44,4 +42,4 @@ Repository = "https://github.com/prnvrvs/ezbib.git"
 Issues = "https://github.com/prnvrvs/ezbib/issues"
 
 [tool.setuptools]
-py-modules = ["orcid2bib"]
+py-modules = ["ezbib"]

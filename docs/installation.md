@@ -17,6 +17,6 @@ Because `ezbib` uses only standard Python libraries, you can download the script
 ```bash
 git clone https://github.com/prnvrvs/ezbib.git
 cd ezbib
-chmod +x orcid2bib.py
-./orcid2bib.py 0000-0002-1825-0097
+chmod +x ezbib.py
+./ezbib.py 0000-0002-1825-0097
 ```

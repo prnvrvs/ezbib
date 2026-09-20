@@ -5,7 +5,7 @@
 ## Example Integration
 
 ```python
-import orcid2bib as ezbib
+import ezbib
 
 # 1. Query an ORCID profile
 works = ezbib.fetch_orcid(

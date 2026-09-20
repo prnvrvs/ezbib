@@ -43,7 +43,6 @@ ezbib
 # Enter ORCID iD or DOI (or press Enter to exit): https://doi.org/10.1016/S1359-6454(02)00577-3
 ```
 
-> **Note:** `ezbib`, `orcid2bib`, and `orcid2bibtex` commands are all supported and can be used interchangeably!
 
 ---
 
@@ -102,7 +101,7 @@ flowchart LR
 ## ✨ Key Features
 
 - 📦 **Zero External Dependencies** — Built 100% on the Python Standard Library (`urllib`, `json`, `re`, `html`, `argparse`). No third-party packages required.
-- ⚡ **First-Class Executable & Package** — Install via `pip install ezbib`, run directly as a standalone executable script (`./orcid2bib.py`), or execute via `python3 -m orcid2bib`.
+- ⚡ **First-Class Executable & Package** — Install via `pip install ezbib`, run directly as a standalone executable script (`./ezbib.py`), or execute via `python3 -m ezbib`.
 - ⌨️ **Interactive Paste Mode** — Run `ezbib` with no arguments to open a prompt where you can paste complex DOIs (with parentheses or special characters) without shell syntax errors.
 - 🔄 **Smart Input Detection & Cleaning** — Seamlessly parses bare ORCID iDs, URL-encoded DOIs, piped standard input (`-`), and cleanly strips surrounding markdown brackets, parentheses, and quotes.
 - 🧹 **LaTeX & MathML Sanitization** — Cleans XML entities and converts complex MathML tags into standard LaTeX math (e.g. `<mml:math><mml:mi>α</mml:mi></mml:math>` $\rightarrow$ `$\alpha$`, `$\Sigma$`).
@@ -146,21 +145,21 @@ pip install -e .
 
 ### Option 3: Standalone Single-File Script (Zero Installation)
 
-Because `ezbib` is self-contained with no external dependencies, you can download `orcid2bib.py` directly and execute it anywhere:
+Because `ezbib` is self-contained with no external dependencies, you can download `ezbib.py` directly and execute it anywhere:
 
 ```bash
 # Download single script
-curl -O https://raw.githubusercontent.com/prnvrvs/ezbib/main/orcid2bib.py
-chmod +x orcid2bib.py
+curl -O https://raw.githubusercontent.com/prnvrvs/ezbib/main/ezbib.py
+chmod +x ezbib.py
 
 # Run directly:
-./orcid2bib.py 0000-0002-1825-0097
+./ezbib.py 0000-0002-1825-0097
 ```
 
 ### Option 4: Run as a Python Module
 
 ```bash
-python3 -m orcid2bib 0000-0002-1825-0097
+python3 -m ezbib 0000-0002-1825-0097
 ```
 
 ---
@@ -343,7 +342,7 @@ usage: ezbib [-h] [-d DOI] [-y YEAR] [--max-year YEAR] [-o FILE]
 `ezbib` can also be imported and used programmatically in any Python 3.7+ application:
 
 ```python
-import orcid2bib as ezbib
+import ezbib as ezbib
 
 # 1. Query an ORCID profile
 works = ezbib.fetch_orcid(
