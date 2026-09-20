@@ -8,7 +8,7 @@ Zero external dependencies - uses standard library only.
 
 import sys
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 REQUIRED_MODULES = [
     ("urllib.request", "Python standard HTTP/networking module"),
@@ -126,6 +126,10 @@ def pretty_format_bibtex(raw_bib, extra_keywords=None):
             v = f[eq_pos + 1 :].strip()
             if (v.startswith("{") and v.endswith("}")) or (v.startswith('"') and v.endswith('"')):
                 v = v[1:-1].strip()
+            
+            # Normalize whitespace (replace newlines/tabs with a single space)
+            v = re.sub(r'\s+', ' ', v).strip()
+            
             parsed_dict[k] = v
         else:
             parsed_dict[f] = None
