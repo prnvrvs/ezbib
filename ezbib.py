@@ -8,7 +8,7 @@ Zero external dependencies - uses standard library only.
 
 import sys
 
-__version__ = "1.1.2"
+__version__ = "1.1.3"
 
 REQUIRED_MODULES = [
     ("urllib.request", "Python standard HTTP/networking module"),
@@ -129,6 +129,9 @@ def pretty_format_bibtex(raw_bib, extra_keywords=None):
             
             # Normalize whitespace (replace newlines/tabs with a single space)
             v = re.sub(r'\s+', ' ', v).strip()
+            
+            # Remove awkward space between LaTeX blocks and hyphens (e.g., "$\alpha$ -Fe" -> "$\alpha$-Fe")
+            v = re.sub(r'(\$\S+\$)\s+(-)', r'\1\2', v)
             
             parsed_dict[k] = v
         else:
