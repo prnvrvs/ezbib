@@ -32,6 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -43,6 +44,8 @@
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
@@ -154,8 +157,7 @@
 </button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide &amp; Recipes</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Python API Reference</a></li>
@@ -321,6 +323,18 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-integration">Example Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ezbib">🛠️ API Documentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.build_parser"><code class="docutils literal notranslate"><span class="pre">build_parser()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.clean_doi_str"><code class="docutils literal notranslate"><span class="pre">clean_doi_str()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.doi_to_bibtex"><code class="docutils literal notranslate"><span class="pre">doi_to_bibtex()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.doi_to_text"><code class="docutils literal notranslate"><span class="pre">doi_to_text()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.fetch_orcid"><code class="docutils literal notranslate"><span class="pre">fetch_orcid()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.is_doi"><code class="docutils literal notranslate"><span class="pre">is_doi()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.pretty_format_bibtex"><code class="docutils literal notranslate"><span class="pre">pretty_format_bibtex()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.sanitize_latex"><code class="docutils literal notranslate"><span class="pre">sanitize_latex()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -337,7 +351,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">ezbib</span></code> can be imported and used programmatically in any Python 3.7+ application.</p>
 <section id="example-integration">
 <h2>Example Integration<a class="headerlink" href="#example-integration" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">orcid2bib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ezbib</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ezbib</span>
 
 <span class="c1"># 1. Query an ORCID profile</span>
 <span class="n">works</span> <span class="o">=</span> <span class="n">ezbib</span><span class="o">.</span><span class="n">fetch_orcid</span><span class="p">(</span>
@@ -364,6 +378,66 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">nature_citation</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="module-ezbib">
+<span id="api-documentation"></span><h2>🛠️ API Documentation<a class="headerlink" href="#module-ezbib" title="Link to this heading">#</a></h2>
+<p>orcid2bib - Universal CLI tool and Python library to convert ORCID iDs and DOIs
+into clean, formatted BibTeX, Markdown, or styled citation text.</p>
+<p>Zero external dependencies - uses standard library only.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.build_parser">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">build_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#build_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.build_parser" title="Link to this definition">#</a></dt>
+<dd><p>Build the command-line argument parser.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.clean_doi_str">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">clean_doi_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#clean_doi_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.clean_doi_str" title="Link to this definition">#</a></dt>
+<dd><p>Normalize and extract a clean DOI string from various URL and string formats.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.doi_to_bibtex">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">doi_to_bibtex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#doi_to_bibtex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.doi_to_bibtex" title="Link to this definition">#</a></dt>
+<dd><p>Fetch BibTeX entry for a given DOI via Crossref content negotiation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.doi_to_text">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">doi_to_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'apa'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#doi_to_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.doi_to_text" title="Link to this definition">#</a></dt>
+<dd><p>Fetch formatted citation string for a DOI in a specific CSL style.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.fetch_orcid">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">fetch_orcid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orcid_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dedup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#fetch_orcid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.fetch_orcid" title="Link to this definition">#</a></dt>
+<dd><p>Query ORCID Public API v3.0 to fetch and parse works for an ORCID iD.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.is_doi">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">is_doi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#is_doi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.is_doi" title="Link to this definition">#</a></dt>
+<dd><p>Determine whether an input string is a DOI or DOI URL.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.main">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.main" title="Link to this definition">#</a></dt>
+<dd><p>Main CLI entry point.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.pretty_format_bibtex">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">pretty_format_bibtex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_bib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_keywords</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#pretty_format_bibtex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.pretty_format_bibtex" title="Link to this definition">#</a></dt>
+<dd><p>Clean and reorder BibTeX fields for consistent formatting.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ezbib.sanitize_latex">
+<span class="sig-prename descclassname"><span class="pre">ezbib.</span></span><span class="sig-name descname"><span class="pre">sanitize_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ezbib.html#sanitize_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ezbib.sanitize_latex" title="Link to this definition">#</a></dt>
+<dd><p>Sanitize XML/MathML fragments and entities into clean LaTeX text.</p>
+</dd></dl>
+
 </section>
 </section>
 
@@ -415,6 +489,18 @@
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-integration">Example Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-ezbib">🛠️ API Documentation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.build_parser"><code class="docutils literal notranslate"><span class="pre">build_parser()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.clean_doi_str"><code class="docutils literal notranslate"><span class="pre">clean_doi_str()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.doi_to_bibtex"><code class="docutils literal notranslate"><span class="pre">doi_to_bibtex()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.doi_to_text"><code class="docutils literal notranslate"><span class="pre">doi_to_text()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.fetch_orcid"><code class="docutils literal notranslate"><span class="pre">fetch_orcid()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.is_doi"><code class="docutils literal notranslate"><span class="pre">is_doi()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.pretty_format_bibtex"><code class="docutils literal notranslate"><span class="pre">pretty_format_bibtex()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ezbib.sanitize_latex"><code class="docutils literal notranslate"><span class="pre">sanitize_latex()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

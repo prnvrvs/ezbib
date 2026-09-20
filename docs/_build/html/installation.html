@@ -32,6 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- So that users can add custom icons -->
@@ -43,6 +44,8 @@
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'installation';</script>
@@ -154,8 +157,7 @@
 </button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide &amp; Recipes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Python API Reference</a></li>
@@ -321,7 +323,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-install-with-pip-pipx-recommended">Option 1: Install with <code class="docutils literal notranslate"><span class="pre">pip</span></code> / <code class="docutils literal notranslate"><span class="pre">pipx</span></code> (Recommended)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-clone-and-run-directly-zero-setup">Option 2: Clone and Run Directly (Zero Setup)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-clone-and-install-from-source">Option 2: Clone and Install from Source</a></li>
 </ul>
             </nav>
         </div>
@@ -345,13 +347,15 @@ pipx<span class="w"> </span>install<span class="w"> </span>ezbib
 </pre></div>
 </div>
 </section>
-<section id="option-2-clone-and-run-directly-zero-setup">
-<h2>Option 2: Clone and Run Directly (Zero Setup)<a class="headerlink" href="#option-2-clone-and-run-directly-zero-setup" title="Link to this heading">#</a></h2>
-<p>Because <code class="docutils literal notranslate"><span class="pre">ezbib</span></code> uses only standard Python libraries, you can download the script and run it immediately without installing anything:</p>
+<section id="option-2-clone-and-install-from-source">
+<h2>Option 2: Clone and Install from Source<a class="headerlink" href="#option-2-clone-and-install-from-source" title="Link to this heading">#</a></h2>
+<p>You can also clone the repository and install it locally using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/prnvrvs/ezbib.git
 <span class="nb">cd</span><span class="w"> </span>ezbib
-chmod<span class="w"> </span>+x<span class="w"> </span>orcid2bib.py
-./orcid2bib.py<span class="w"> </span><span class="m">0000</span>-0002-1825-0097
+pip<span class="w"> </span>install<span class="w"> </span>.
+
+<span class="c1"># Now you can use the command globally!</span>
+ezbib<span class="w"> </span><span class="m">0000</span>-0002-1825-0097
 </pre></div>
 </div>
 </section>
@@ -405,7 +409,7 @@ chmod<span class="w"> </span>+x<span class="w"> </span>orcid2bib.py
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-1-install-with-pip-pipx-recommended">Option 1: Install with <code class="docutils literal notranslate"><span class="pre">pip</span></code> / <code class="docutils literal notranslate"><span class="pre">pipx</span></code> (Recommended)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-clone-and-run-directly-zero-setup">Option 2: Clone and Run Directly (Zero Setup)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2-clone-and-install-from-source">Option 2: Clone and Install from Source</a></li>
 </ul>
   </nav></div>
 

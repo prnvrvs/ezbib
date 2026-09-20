@@ -5,7 +5,7 @@
 ## Example Integration
 
 ```python
-import orcid2bib as ezbib
+import ezbib
 
 # 1. Query an ORCID profile
 works = ezbib.fetch_orcid(
@@ -30,4 +30,13 @@ nature_citation = ezbib.doi_to_text(
     style="nature"
 )
 print(nature_citation)
+```
+
+## 🛠️ API Documentation
+
+```{eval-rst}
+.. automodule:: ezbib
+   :members:
+   :undoc-members:
+   :show-inheritance:
 ```

@@ -31,3 +31,12 @@ nature_citation = ezbib.doi_to_text(
 )
 print(nature_citation)
 ```
+
+## 🛠️ API Documentation
+
+```{eval-rst}
+.. automodule:: ezbib
+   :members:
+   :undoc-members:
+   :show-inheritance:
+```

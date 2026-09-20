@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ezbib &#8212; ezbib  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ezbib';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">ezbib  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/prnvrvs/ezbib" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage Guide &amp; Recipes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/prnvrvs/ezbib" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for ezbib</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">orcid2bib - Universal CLI tool and Python library to convert ORCID iDs and DOIs</span>
+<span class="sd">into clean, formatted BibTeX, Markdown, or styled citation text.</span>
+
+<span class="sd">Zero external dependencies - uses standard library only.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.1&quot;</span>
+
+<span class="n">REQUIRED_MODULES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;urllib.request&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard HTTP/networking module&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;urllib.parse&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard URL parsing module&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;urllib.error&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard URL error handling module&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard JSON parser&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;re&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard regular expressions library&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;argparse&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard CLI argument parser&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard timing library&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;Python standard OS interface&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">missing</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">mod</span><span class="p">,</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">REQUIRED_MODULES</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">__import__</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">mod</span><span class="p">,</span> <span class="n">desc</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">missing</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">75</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; [!] ERROR: Missing Required Python Environment / Dependencies&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">75</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  * Python Version: Found Python </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span><span class="si">}</span><span class="s2">, but Python 3.7+ is required.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">mod</span><span class="p">,</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  * Module &#39;</span><span class="si">{</span><span class="n">mod</span><span class="si">}</span><span class="s2">&#39; is missing (</span><span class="si">{</span><span class="n">desc</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> How to resolve:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  1. Ensure you are running Python 3.7+: python3 --version&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  2. If using a stripped Python environment, install:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     pip install &quot;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">missing</span><span class="p">]),</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">75</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">html</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.error</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.parse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+
+<span class="n">USER_AGENT</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;orcid2bib/</span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> (Academic Research Tool; mailto:academic@research.org)&quot;</span>
+
+
+<div class="viewcode-block" id="sanitize_latex">
+<a class="viewcode-back" href="../api.html#ezbib.sanitize_latex">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sanitize_latex</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sanitize XML/MathML fragments and entities into clean LaTeX text.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="c1"># Convert common MathML entities / tags to LaTeX</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;mml:math.*?&lt;mml:mi&gt;α&lt;/mml:mi&gt;.*?&lt;/mml:math&gt;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">alpha$&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;mml:math.*?&lt;mml:mi&gt;β&lt;/mml:mi&gt;.*?&lt;/mml:math&gt;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">beta$&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;mml:math.*?&lt;mml:mi&gt;γ&lt;/mml:mi&gt;.*?&lt;/mml:math&gt;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">gamma$&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;mml:math.*?&lt;mml:mi&gt;Σ&lt;/mml:mi&gt;.*?&lt;/mml:math&gt;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">Sigma$&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;mml:math.*?&lt;mml:mi&gt;σ&lt;/mml:mi&gt;.*?&lt;/mml:math&gt;&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">sigma$&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    <span class="c1"># Strip remaining XML/HTML tags</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;[^&gt;]+&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="c1"># Unescape HTML entities (&amp;amp;, &amp;lt;, &amp;gt;, &amp;ndash;, &amp;#945;, etc.)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="pretty_format_bibtex">
+<a class="viewcode-back" href="../api.html#ezbib.pretty_format_bibtex">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pretty_format_bibtex</span><span class="p">(</span><span class="n">raw_bib</span><span class="p">,</span> <span class="n">extra_keywords</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean and reorder BibTeX fields for consistent formatting.&quot;&quot;&quot;</span>
+    <span class="n">raw_bib</span> <span class="o">=</span> <span class="n">sanitize_latex</span><span class="p">(</span><span class="n">raw_bib</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^@([a-zA-Z]+)\s*\{\s*([^,]+)\s*,\s*(.*)\}\s*$&quot;</span><span class="p">,</span> <span class="n">raw_bib</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">raw_bib</span>
+
+    <span class="n">entry_type</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">cite_key</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">brace_depth</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">in_quote</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;{&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">in_quote</span><span class="p">:</span>
+            <span class="n">brace_depth</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;}&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">in_quote</span><span class="p">:</span>
+            <span class="n">brace_depth</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ch</span> <span class="o">==</span> <span class="s1">&#39;&quot;&#39;</span> <span class="ow">and</span> <span class="n">brace_depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">in_quote</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">in_quote</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;,&quot;</span> <span class="ow">and</span> <span class="n">brace_depth</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">in_quote</span><span class="p">:</span>
+            <span class="n">field_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">field_str</span><span class="p">:</span>
+                <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field_str</span><span class="p">)</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">field_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">field_str</span><span class="p">:</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field_str</span><span class="p">)</span>
+
+    <span class="n">preferred_order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;author&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;journal&quot;</span><span class="p">,</span> <span class="s2">&quot;booktitle&quot;</span><span class="p">,</span> <span class="s2">&quot;volume&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="s2">&quot;pages&quot;</span><span class="p">,</span> <span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;doi&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;issn&quot;</span><span class="p">,</span> <span class="s2">&quot;publisher&quot;</span><span class="p">]</span>
+
+    <span class="n">parsed_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="n">eq_pos</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">eq_pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">f</span><span class="p">[:</span><span class="n">eq_pos</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">eq_pos</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;{&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">v</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)):</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">parsed_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parsed_dict</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">formatted_fields</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">preferred_order</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">parsed_dict</span><span class="p">:</span>
+            <span class="n">formatted_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="se">{{</span><span class="si">{</span><span class="n">parsed_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">formatted_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="se">{{</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">formatted_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">extra_keywords</span><span class="p">:</span>
+        <span class="n">formatted_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  keywords = </span><span class="se">{{</span><span class="si">{</span><span class="n">extra_keywords</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">fields_joined</span> <span class="o">=</span> <span class="s2">&quot;,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">formatted_fields</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;@</span><span class="si">{</span><span class="n">entry_type</span><span class="si">}</span><span class="se">{{</span><span class="si">{</span><span class="n">cite_key</span><span class="si">}</span><span class="s2">,</span><span class="se">\n</span><span class="si">{</span><span class="n">fields_joined</span><span class="si">}</span><span class="se">\n}}</span><span class="s2">&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="clean_doi_str">
+<a class="viewcode-back" href="../api.html#ezbib.clean_doi_str">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">clean_doi_str</span><span class="p">(</span><span class="n">doi</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize and extract a clean DOI string from various URL and string formats.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">doi</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">doi</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">unquote</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="c1"># Strip surrounding quotes, backticks, angle brackets</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="se">\&quot;</span><span class="s2">`&lt;&gt; </span><span class="se">\t\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Remove URL prefixes and DOI URI schemes</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^https?://(dx\.)?doi\.org/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^doi:\s*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+    <span class="c1"># Strip any trailing punctuation often copied from text or markdown links</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;.,;)&gt;]}&quot;</span><span class="p">)</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(10\.\d{4,9}/[-._;()/:A-Za-z0-9]+)&quot;</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;.,;)&gt;]}&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="is_doi">
+<a class="viewcode-back" href="../api.html#ezbib.is_doi">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_doi</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine whether an input string is a DOI or DOI URL.&quot;&quot;&quot;</span>
+    <span class="n">clean</span> <span class="o">=</span> <span class="n">clean_doi_str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">clean</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;10.&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="doi_to_bibtex">
+<a class="viewcode-back" href="../api.html#ezbib.doi_to_bibtex">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">doi_to_bibtex</span><span class="p">(</span><span class="n">doi</span><span class="p">,</span> <span class="n">extra_keywords</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch BibTeX entry for a given DOI via Crossref content negotiation.&quot;&quot;&quot;</span>
+    <span class="n">clean_doi</span> <span class="o">=</span> <span class="n">clean_doi_str</span><span class="p">(</span><span class="n">doi</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://doi.org/</span><span class="si">{</span><span class="n">clean_doi</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/x-bibtex&quot;</span><span class="p">,</span> <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">USER_AGENT</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pretty_format_bibtex</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">extra_keywords</span><span class="o">=</span><span class="n">extra_keywords</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;% Error fetching BibTeX for DOI </span><span class="si">{</span><span class="n">doi</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+
+<span class="n">STYLE_MAP</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;apa&quot;</span><span class="p">:</span> <span class="s2">&quot;apa&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nature&quot;</span><span class="p">:</span> <span class="s2">&quot;nature&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ieee&quot;</span><span class="p">:</span> <span class="s2">&quot;ieee&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;acs&quot;</span><span class="p">:</span> <span class="s2">&quot;american-chemical-society&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;chicago&quot;</span><span class="p">:</span> <span class="s2">&quot;chicago-author-date&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;elsevier&quot;</span><span class="p">:</span> <span class="s2">&quot;elsevier-with-titles&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;acta&quot;</span><span class="p">:</span> <span class="s2">&quot;elsevier-with-titles&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;harvard&quot;</span><span class="p">:</span> <span class="s2">&quot;elsevier-harvard&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;springer&quot;</span><span class="p">:</span> <span class="s2">&quot;springer-basic-author-date&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mla&quot;</span><span class="p">:</span> <span class="s2">&quot;modern-language-association&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="doi_to_text">
+<a class="viewcode-back" href="../api.html#ezbib.doi_to_text">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">doi_to_text</span><span class="p">(</span><span class="n">doi</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;apa&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch formatted citation string for a DOI in a specific CSL style.&quot;&quot;&quot;</span>
+    <span class="n">csl_style</span> <span class="o">=</span> <span class="n">STYLE_MAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">style</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">style</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="n">clean_doi</span> <span class="o">=</span> <span class="n">clean_doi_str</span><span class="p">(</span><span class="n">doi</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://doi.org/</span><span class="si">{</span><span class="n">clean_doi</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;text/x-bibliography; style=</span><span class="si">{</span><span class="n">csl_style</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">USER_AGENT</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">sanitize_latex</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="c1"># Fallback to APA if custom style fails</span>
+        <span class="k">if</span> <span class="n">csl_style</span> <span class="o">!=</span> <span class="s2">&quot;apa&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">doi_to_text</span><span class="p">(</span><span class="n">doi</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;apa&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;[DOI: </span><span class="si">{</span><span class="n">doi</span><span class="si">}</span><span class="s2">]&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="fetch_orcid">
+<a class="viewcode-back" href="../api.html#ezbib.fetch_orcid">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_orcid</span><span class="p">(</span><span class="n">orcid_id</span><span class="p">,</span> <span class="n">min_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dedup</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Query ORCID Public API v3.0 to fetch and parse works for an ORCID iD.&quot;&quot;&quot;</span>
+    <span class="n">clean_id</span> <span class="o">=</span> <span class="n">orcid_id</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;https://orcid.org/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://pub.orcid.org/v3.0/</span><span class="si">{</span><span class="n">clean_id</span><span class="si">}</span><span class="s2">/works&quot;</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span>
+        <span class="n">url</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span> <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">USER_AGENT</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[-] Error querying ORCID </span><span class="si">{</span><span class="n">clean_id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="n">works</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">summaries</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;work-summary&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">summaries</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">summaries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">title_obj</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">sanitize_latex</span><span class="p">(</span><span class="n">title_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;Untitled&quot;</span><span class="p">))</span>
+
+        <span class="n">pub_year</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">pub_date</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;publication-date&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pub_date</span> <span class="ow">and</span> <span class="n">pub_date</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pub_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pub_date</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">))</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="n">pub_year</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">journal_obj</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;journal-title&quot;</span><span class="p">)</span>
+        <span class="n">journal</span> <span class="o">=</span> <span class="n">journal_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">journal_obj</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">wtype</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;JOURNAL_ARTICLE&quot;</span><span class="p">)</span>
+
+        <span class="n">doi</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">ext_ids</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;external-ids&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;external-id&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">ext_ids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ext</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;external-id-type&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;doi&quot;</span><span class="p">:</span>
+                <span class="n">doi</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;external-id-value&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">min_year</span> <span class="ow">and</span> <span class="n">pub_year</span> <span class="ow">and</span> <span class="n">pub_year</span> <span class="o">&lt;</span> <span class="n">min_year</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">max_year</span> <span class="ow">and</span> <span class="n">pub_year</span> <span class="ow">and</span> <span class="n">pub_year</span> <span class="o">&gt;</span> <span class="n">max_year</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">works</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">pub_year</span><span class="p">,</span>
+            <span class="s2">&quot;journal&quot;</span><span class="p">:</span> <span class="n">journal</span><span class="p">,</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">wtype</span><span class="p">,</span>
+            <span class="s2">&quot;doi&quot;</span><span class="p">:</span> <span class="n">doi</span><span class="p">,</span>
+        <span class="p">})</span>
+
+    <span class="n">works</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">0</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">quality_types</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;JOURNAL_ARTICLE&quot;</span><span class="p">,</span> <span class="s2">&quot;BOOK_CHAPTER&quot;</span><span class="p">,</span> <span class="s2">&quot;BOOK&quot;</span><span class="p">,</span> <span class="s2">&quot;CONFERENCE_PAPER&quot;</span><span class="p">,</span> <span class="s2">&quot;PROCEEDINGS_ARTICLE&quot;</span><span class="p">}</span>
+    <span class="n">published_titles</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^a-zA-Z0-9]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">works</span>
+        <span class="k">if</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">quality_types</span> <span class="ow">or</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;journal&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">&quot;arxiv&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;journal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="s2">&quot;preprint&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;journal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="p">]</span>
+
+    <span class="n">filtered_works</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">works</span><span class="p">:</span>
+        <span class="n">norm_title</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^a-zA-Z0-9]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">is_preprint</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">w</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;PREPRINT&quot;</span>
+            <span class="ow">or</span> <span class="s2">&quot;arxiv&quot;</span> <span class="ow">in</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;journal&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="s2">&quot;biorxiv&quot;</span> <span class="ow">in</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;journal&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="s2">&quot;research square&quot;</span> <span class="ow">in</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;journal&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_preprint</span> <span class="ow">and</span> <span class="n">dedup</span><span class="p">:</span>
+            <span class="n">is_duplicate</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">norm_title</span> <span class="ow">in</span> <span class="n">pt</span> <span class="ow">or</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">norm_title</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">norm_title</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">20</span> <span class="ow">and</span> <span class="n">norm_title</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span> <span class="ow">in</span> <span class="n">pt</span><span class="p">)</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">published_titles</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">is_duplicate</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+        <span class="n">w</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;quality_assured&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">quality_types</span> <span class="ow">or</span> <span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;journal&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_preprint</span><span class="p">))</span> <span class="k">else</span> <span class="s2">&quot;other&quot;</span>
+        <span class="n">filtered_works</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">filtered_works</span></div>
+
+
+
+<div class="viewcode-block" id="build_parser">
+<a class="viewcode-back" href="../api.html#ezbib.build_parser">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_parser</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the command-line argument parser.&quot;&quot;&quot;</span>
+    <span class="n">epilog_text</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+        <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">,</span>
+        <span class="s2">&quot;PRACTICAL USAGE EXAMPLES:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">,</span>
+        <span class="s2">&quot;  1. Fetch all works for an ORCID profile:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 0000-0002-1825-0097&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  2. Filter publications from year 2021 onwards and save to .bib:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 0000-0002-1825-0097 -y 2021 -o my_pubs.bib&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  3. Fetch BibTeX for a single DOI directly:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 10.1016/j.actamat.2025.121319&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib https://doi.org/10.1016/j.actamat.2025.121319&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  4. Fetch BibTeX using the explicit --doi / -d flag:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib -d 10.1016/j.actamat.2025.121319 -o paper.bib&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  5. Print formatted bibliography in APA, Nature, IEEE, or ACS style:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 0000-0002-1825-0097 -y 2021 -f text&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 10.1016/j.actamat.2025.121319 -f text --style nature&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 10.1016/j.actamat.2025.121319 -f text --style ieee&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 10.1016/j.actamat.2025.121319 -f text --style acs&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  6. Export as a formatted Markdown publication list for CV / Website:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 0000-0002-1825-0097 -y 2021 -f markdown -o cv_pubs.md&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;  7. Include all raw preprints without deduplication:&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;     ezbib 0000-0002-1825-0097 --no-dedup -o all_records.bib&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">79</span><span class="p">,</span>
+    <span class="p">])</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">prog</span><span class="o">=</span><span class="s2">&quot;ezbib&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;ezbib - Universal CLI tool to convert any ORCID identifier or DOI into clean BibTeX, Markdown, or Plain Text.&quot;</span><span class="p">,</span>
+        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">,</span>
+        <span class="n">epilog</span><span class="o">=</span><span class="n">epilog_text</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;target&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;ORCID identifier (e.g. 0000-0002-1825-0097) OR direct DOI (e.g. 10.1016/j.actamat.2025.121319). Use &#39;-&#39; to read from standard input.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;--doi&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Single DOI or comma-separated list of DOIs to fetch directly&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-y&quot;</span><span class="p">,</span> <span class="s2">&quot;--min-year&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Filter publications published in or after this year (e.g. -y 2021)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--max-year&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;YEAR&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Filter publications published up to this year (e.g. --max-year 2025)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;FILE&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Save output directly to a file (e.g. -o publications.bib or -o cv.md)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--format&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bibtex&quot;</span><span class="p">,</span> <span class="s2">&quot;markdown&quot;</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;apa&quot;</span><span class="p">],</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;bibtex&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output format: bibtex (default), markdown, or text&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-s&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--style&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;apa&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Citation style for text format: apa (default), nature, ieee, acs, elsevier, chicago, harvard, springer, mla&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--no-dedup&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Disable smart preprint deduplication (keep preprints even if published in a journal)&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-v&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;--version&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;version&quot;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;%(prog)s </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Show program&#39;s version number and exit&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">parser</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../api.html#ezbib.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Main CLI entry point.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">build_parser</span><span class="p">()</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span>
+
+        <span class="n">target</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">doi</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">target</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+        <span class="c1"># Handle stdin if target is &#39;-&#39;</span>
+        <span class="k">if</span> <span class="n">target</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="c1"># If no target was passed, prompt interactively if in a terminal</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">doi</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">isatty</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">target</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter ORCID iD or DOI (or press Enter to exit): &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>
+                <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+                <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># 1. Direct DOI mode</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">doi</span> <span class="ow">or</span> <span class="n">is_doi</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+            <span class="n">dois</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[,\s\n]+&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dois</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;apa&quot;</span><span class="p">,</span> <span class="s2">&quot;biblio&quot;</span><span class="p">]:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[*] Fetching formatted citation for DOI: </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                    <span class="n">cit</span> <span class="o">=</span> <span class="n">doi_to_text</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">style</span><span class="p">)</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cit</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[*] Fetching BibTeX for DOI: </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                    <span class="n">bib</span> <span class="o">=</span> <span class="n">doi_to_bibtex</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+                    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bib</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="c1"># 2. ORCID profile mode</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[*] Fetching works from ORCID: </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="n">works</span> <span class="o">=</span> <span class="n">fetch_orcid</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">min_year</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">min_year</span><span class="p">,</span> <span class="n">max_year</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_year</span><span class="p">,</span> <span class="n">dedup</span><span class="o">=</span><span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">no_dedup</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[+] Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">works</span><span class="p">)</span><span class="si">}</span><span class="s2"> publications (filtered).&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;bibtex&quot;</span><span class="p">:</span>
+                <span class="n">bib_entries</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">works</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;doi&quot;</span><span class="p">]:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  -&gt; Fetching BibTeX for DOI: </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;doi&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                        <span class="n">b</span> <span class="o">=</span> <span class="n">doi_to_bibtex</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;doi&quot;</span><span class="p">],</span> <span class="n">extra_keywords</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
+                        <span class="n">bib_entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+                        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">bib_entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;% Work without DOI: </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bib_entries</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;markdown&quot;</span><span class="p">:</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;# Publications from ORCID </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">works</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">y_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">if</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;year&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">doi_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[DOI: </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;doi&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">](https://doi.org/</span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;doi&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">if</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;doi&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;No DOI&quot;</span>
+                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. **</span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">** </span><span class="si">{</span><span class="n">y_str</span><span class="si">}</span><span class="s2"> — *</span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;journal&#39;</span><span class="p">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">* (</span><span class="si">{</span><span class="n">doi_str</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Simple text bibliography (APA/Nature/etc.)</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Publications from ORCID </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">works</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;doi&quot;</span><span class="p">]:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  -&gt; Fetching citation for DOI: </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;doi&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+                        <span class="n">cit</span> <span class="o">=</span> <span class="n">doi_to_text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;doi&quot;</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">style</span><span class="p">)</span>
+                        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">cit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.15</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">) — </span><span class="si">{</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;journal&#39;</span><span class="p">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;N/A&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[+] Saved output to </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[!] Operation cancelled by user.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">130</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[-] Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Pranav
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Pranav.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
