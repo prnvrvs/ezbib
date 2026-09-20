@@ -8,7 +8,7 @@ Zero external dependencies - uses standard library only.
 
 import sys
 
-__version__ = "1.1.3"
+__version__ = "1.1.4"
 
 REQUIRED_MODULES = [
     ("urllib.request", "Python standard HTTP/networking module"),
@@ -222,7 +222,12 @@ def doi_to_text(doi, style="apa"):
     try:
         with urllib.request.urlopen(req, timeout=12) as resp:
             content = resp.read().decode("utf-8").strip()
-            return sanitize_latex(content)
+            content = sanitize_latex(content)
+            # Normalize whitespace/newlines for plain text citations
+            content = re.sub(r'\s+', ' ', content).strip()
+            # Remove awkward space between LaTeX blocks and hyphens
+            content = re.sub(r'(\$\S+\$)\s+(-)', r'\1\2', content)
+            return content
     except Exception:
         # Fallback to APA if custom style fails
         if csl_style != "apa":
