@@ -15,10 +15,9 @@ Raw bibliographic metadata from academic APIs is frequently inconsistent, filled
 - 🏷️ **Grant-Ready BibLaTeX** — Auto-tags `quality_assured` for DFG, EU, & NSF proposals.
 
 ```{toctree}
----
-maxdepth: 2
-caption: "Contents:"
----
+:maxdepth: 2
+:caption: Contents:
+
 installation
 usage
 api
