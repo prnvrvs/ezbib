@@ -47,6 +47,8 @@ if missing or sys.version_info < (3, 7):
 import argparse
 import html
 import json
+import csv
+import io
 import os
 import re
 import time
@@ -161,12 +163,44 @@ def clean_doi_str(doi):
         return ""
     d = str(doi).strip()
     d = urllib.parse.unquote(d)
+    
+    # Universal URL Extractor
+    if d.startswith("http") and "orcid.org" not in d.lower() and "doi.org" not in d.lower():
+        try:
+            req = urllib.request.Request(d, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                html = resp.read().decode('utf-8', errors='ignore')
+                
+                # Check standard Google Scholar meta tags
+                match = re.search(r'<meta\s+(?:name|property)=[\'"](?:citation_doi|dc\.identifier|prism\.doi|DOI)[\'"]\s+content=[\'"]([^\'"]+)[\'"]', html, re.IGNORECASE)
+                if match:
+                    d = match.group(1).strip()
+                else:
+                    match = re.search(r'(10\.\d{4,9}/[-._;()/:A-Za-z0-9]+)', html)
+                    if match:
+                        d = match.group(1).strip()
+        except Exception:
+            pass
+            
+    # Auto-resolve ScienceDirect PIIs (if HTML fetch failed)
+    if "sciencedirect.com/science/article/pii/" in d.lower():
+        pii = d.split("/pii/")[-1].split("?")[0].split("#")[0].strip()
+        try:
+            req = urllib.request.Request(f"https://api.crossref.org/works?query={pii}&select=DOI&rows=1", headers={"User-Agent": "ezbib/1.0"})
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                import json
+                data = json.loads(resp.read().decode('utf-8'))
+                items = data.get("message", {}).get("items", [])
+                if items and "DOI" in items[0]:
+                    d = items[0]["DOI"]
+        except Exception:
+            pass
+            
     # Strip surrounding quotes, backticks, angle brackets
     d = d.strip("'\"`<> \t\r\n")
     # Remove URL prefixes and DOI URI schemes
     d = re.sub(r"^https?://(dx\.)?doi\.org/", "", d, flags=re.IGNORECASE)
     d = re.sub(r"^doi:\s*", "", d, flags=re.IGNORECASE)
-    # Strip any trailing punctuation often copied from text or markdown links
     d = d.rstrip(".,;)>]}")
     match = re.search(r"(10\.\d{4,9}/[-._;()/:A-Za-z0-9]+)", d)
     if match:
@@ -175,7 +209,10 @@ def clean_doi_str(doi):
 
 
 def is_doi(text):
-    """Determine whether an input string is a DOI or DOI URL."""
+
+    """Determine whether an input string is a DOI or a supported publisher URL."""
+    if text.strip().startswith("http") and "orcid.org" not in text.lower():
+        return True
     clean = clean_doi_str(text)
     return clean.startswith("10.")
 
@@ -183,6 +220,8 @@ def is_doi(text):
 def doi_to_bibtex(doi, extra_keywords=None):
     """Fetch BibTeX entry for a given DOI via Crossref content negotiation."""
     clean_doi = clean_doi_str(doi)
+    if clean_doi.startswith("http"):
+        return f"% [-] Sorry, I am unable to extract the DOI from this link automatically (likely due to bot protection). Please provide the raw DOI directly."
     url = f"https://doi.org/{clean_doi}"
     req = urllib.request.Request(
         url,
@@ -214,6 +253,8 @@ def doi_to_text(doi, style="apa"):
     """Fetch formatted citation string for a DOI in a specific CSL style."""
     csl_style = STYLE_MAP.get(style.lower().strip(), style.strip())
     clean_doi = clean_doi_str(doi)
+    if clean_doi.startswith("http"):
+        return f"[-] Sorry, I am unable to extract the DOI from this link automatically (likely due to bot protection). Please provide the raw DOI directly."
     url = f"https://doi.org/{clean_doi}"
     req = urllib.request.Request(
         url,
@@ -233,6 +274,43 @@ def doi_to_text(doi, style="apa"):
         if csl_style != "apa":
             return doi_to_text(doi, style="apa")
         return f"[DOI: {doi}]"
+
+
+
+def doi_to_csv_row(doi):
+    clean_doi = clean_doi_str(doi)
+    if clean_doi.startswith("http"):
+        return f"Error: Unable to extract DOI from this link (bot protection) - Please provide raw DOI.,,,,"
+    url = f"https://doi.org/{clean_doi}"
+    req = urllib.request.Request(
+        url,
+        headers={"Accept": "application/vnd.citationstyles.csl+json", "User-Agent": USER_AGENT},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            
+            raw_title = data.get("title", "")
+            title = sanitize_latex(raw_title)
+            title = re.sub(r'\s+', ' ', title).strip()
+            title = re.sub(r'(\$\S+\$)\s+(-)', r'\1\2', title)
+            
+            authors_list = data.get("author", [])
+            authors = "; ".join([f"{a.get('family', '')}, {a.get('given', '')}".strip(", ") for a in authors_list])
+            
+            journal = data.get("container-title", "")
+            
+            year = ""
+            issued = data.get("issued", {})
+            if "date-parts" in issued and issued["date-parts"]:
+                year = str(issued["date-parts"][0][0])
+                
+            output = io.StringIO()
+            writer = csv.writer(output)
+            writer.writerow([title, authors, journal, year, clean_doi])
+            return output.getvalue().strip()
+    except Exception as e:
+        return f"Error fetching {doi},,,,,\n"
 
 
 def fetch_orcid(orcid_id, min_year=None, max_year=None, dedup=True):
@@ -329,6 +407,8 @@ import http.server
 import socketserver
 import webbrowser
 import json
+import csv
+import io
 import threading
 
 HTML_TEMPLATE = """
@@ -502,17 +582,29 @@ class WebGUIHandler(http.server.BaseHTTPRequestHandler):
                 if is_doi(target):
                     dois = [d.strip() for d in re.split(r"[,\s\n]+", target) if d.strip()]
                     results = []
+                    if fmt == "csv":
+                        results.append("Title,Authors,Journal,Year,DOI")
                     for d in dois:
-                        if fmt in ["text", "apa", "biblio"]:
+                        if fmt == "csv":
+                            results.append(doi_to_csv_row(d))
+                        elif fmt in ["text", "apa", "biblio"]:
                             results.append(doi_to_text(d, style=style))
                         elif fmt == "markdown":
                             results.append(f"- [DOI: {d}](https://doi.org/{d})") 
                         else:
                             results.append(doi_to_bibtex(d))
-                    output = "\n\n".join(results)
+                    output = "\n".join(results) if fmt == "csv" else "\n\n".join(results)
                 else:
                     works = fetch_orcid(target, min_year=min_year, dedup=dedup)
-                    if fmt == "bibtex":
+                    if fmt == "csv":
+                        entries = ["Title,Authors,Journal,Year,DOI"]
+                        for w in works:
+                            if w['doi']:
+                                entries.append(doi_to_csv_row(w['doi']))
+                            else:
+                                entries.append(f'"{w["title"]}","{w["authors"]}","{w["journal"]}","{w["year"]}",""')
+                        output = "\n".join(entries)
+                    elif fmt == "bibtex":
                         entries = [doi_to_bibtex(w['doi'], extra_keywords=w['category']) if w['doi'] else f"% Work without DOI: {w['title']} ({w['year']})" for w in works]
                         output = "\n\n".join(entries)
                     elif fmt == "markdown":
@@ -628,7 +720,7 @@ def build_parser():
     parser.add_argument(
         "-f",
         "--format",
-        choices=["bibtex", "markdown", "text", "apa"],
+        choices=["bibtex", "markdown", "text", "apa", "csv"],
         default="bibtex",
         help="Output format: bibtex (default), markdown, or text",
     )
@@ -685,8 +777,14 @@ def main(argv=None):
         if args.doi or is_doi(target):
             dois = [d.strip() for d in re.split(r"[,\s\n]+", target) if d.strip()]
             results = []
+            if args.format == "csv":
+                results.append("Title,Authors,Journal,Year,DOI")
             for d in dois:
-                if args.format in ["text", "apa", "biblio"]:
+                if args.format == "csv":
+                    print(f"[*] Fetching CSV data for DOI: {d}...", file=sys.stderr)
+                    cit = doi_to_csv_row(d)
+                    results.append(cit)
+                elif args.format in ["text", "apa", "biblio"]:
                     print(f"[*] Fetching formatted citation for DOI: {d}...", file=sys.stderr)
                     cit = doi_to_text(d, style=args.style)
                     results.append(cit)
@@ -695,7 +793,7 @@ def main(argv=None):
                     bib = doi_to_bibtex(d)
                     results.append(bib)
                 time.sleep(0.15)
-            output = "\n\n".join(results) + "\n"
+            output = "\n".join(results) + "\n" if args.format == "csv" else "\n\n".join(results) + "\n"
 
         # 2. ORCID profile mode
         else:
@@ -703,7 +801,15 @@ def main(argv=None):
             works = fetch_orcid(target, min_year=args.min_year, max_year=args.max_year, dedup=not args.no_dedup)
             print(f"[+] Found {len(works)} publications (filtered).", file=sys.stderr)
 
-            if args.format == "bibtex":
+            if args.format == "csv":
+                csv_lines = ["Title,Authors,Journal,Year,DOI"]
+                for w in works:
+                    if w['doi']:
+                        csv_lines.append(doi_to_csv_row(w['doi']))
+                    else:
+                        csv_lines.append(f'"{w["title"]}","{w["authors"]}","{w["journal"]}","{w["year"]}",""')
+                output = "\n".join(csv_lines) + "\n"
+            elif args.format == "bibtex":
                 bib_entries = []
                 for w in works:
                     if w["doi"]:

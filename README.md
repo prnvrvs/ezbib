@@ -32,7 +32,10 @@ ezbib 0000-0002-1825-0097 -o publications.bib
 Generate a Markdown CV or styled text citations (Nature, APA, IEEE):
 ```bash
 ezbib 10.1016/j.actamat.2025.121319 -f markdown -o cv.md
-ezbib 10.1016/j.actamat.2025.121319 -f text --style nature
+ezbib 10.1016/j.actamat.2025.121319 -f text
+
+# Or paste a Nature/ScienceDirect URL directly!
+ezbib https://www.nature.com/articles/s42256-025-01055-1 -f csv --style nature
 ```
 
 Launch the built-in browser UI (requires zero dependencies):
