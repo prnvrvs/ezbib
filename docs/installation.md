@@ -10,13 +10,15 @@ pip install ezbib
 pipx install ezbib
 ```
 
-### Option 2: Clone and Run Directly (Zero Setup)
+### Option 2: Clone and Install from Source
 
-Because `ezbib` uses only standard Python libraries, you can download the script and run it immediately without installing anything:
+You can also clone the repository and install it locally using `pip`:
 
 ```bash
 git clone https://github.com/prnvrvs/ezbib.git
 cd ezbib
-chmod +x ezbib.py
-./ezbib.py 0000-0002-1825-0097
+pip install .
+
+# Now you can use the command globally!
+ezbib 0000-0002-1825-0097
 ```
