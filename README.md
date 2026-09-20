@@ -37,6 +37,10 @@ ezbib 0000-0002-1825-0097 -f markdown -o cv_publications.md
 
 # 6. Read DOIs from a pipe or standard input
 cat dois.txt | ezbib - -o references.bib
+
+# 7. Interactive paste mode (no shell escaping needed for complex URLs!)
+ezbib
+# Enter ORCID iD or DOI (or press Enter to exit): https://doi.org/10.1016/S1359-6454(02)00577-3
 ```
 
 > **Note:** `ezbib`, `orcid2bib`, and `orcid2bibtex` commands are all supported and can be used interchangeably!
@@ -99,7 +103,8 @@ flowchart LR
 
 - 📦 **Zero External Dependencies** — Built 100% on the Python Standard Library (`urllib`, `json`, `re`, `html`, `argparse`). No third-party packages required.
 - ⚡ **First-Class Executable & Package** — Install via `pip install ezbib`, run directly as a standalone executable script (`./orcid2bib.py`), or execute via `python3 -m orcid2bib`.
-- 🔄 **Smart Input Detection** — Seamlessly parses bare ORCID iDs (`0000-0002-1825-0097`), full ORCID URLs (`https://orcid.org/...`), single/multiple DOIs (`10.1016/...`), and piped standard input (`-`).
+- ⌨️ **Interactive Paste Mode** — Run `ezbib` with no arguments to open a prompt where you can paste complex DOIs (with parentheses or special characters) without shell syntax errors.
+- 🔄 **Smart Input Detection & Cleaning** — Seamlessly parses bare ORCID iDs, URL-encoded DOIs, piped standard input (`-`), and cleanly strips surrounding markdown brackets, parentheses, and quotes.
 - 🧹 **LaTeX & MathML Sanitization** — Cleans XML entities and converts complex MathML tags into standard LaTeX math (e.g. `<mml:math><mml:mi>α</mml:mi></mml:math>` $\rightarrow$ `$\alpha$`, `$\Sigma$`).
 - 🧠 **Intelligent Preprint Deduplication** — Identifies and suppresses preprint versions (arXiv, bioRxiv, ChemRxiv, Research Square) when peer-reviewed journal versions exist in the profile.
 - 🏷️ **Grant-Ready BibLaTeX Categorization** — Injects `keywords = {quality_assured}` or `keywords = {other}` to instantly generate split CV/grant bibliographies (e.g., for DFG, EU Horizon Europe, and NSF).
