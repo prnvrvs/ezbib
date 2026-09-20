@@ -54,6 +54,13 @@ ezbib 10.1016/j.actamat.2025.121319 -f text --style nature
 
 ---
 
+### 4. Interactive Web GUI
+Don't want to use the command line? Start the built-in browser interface!
+```bash
+ezbib web
+```
+This automatically spins up a local web server (using only standard Python libraries) and opens a beautiful, interactive form in your default web browser!
+
 ## 🎨 Citation Styles
 
 You can generate text citations in numerous formats using the `-s` flag.
