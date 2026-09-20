@@ -9,7 +9,6 @@ author = 'Pranav'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinx.ext.viewcode',
     'myst_parser',
     'sphinx_design',
     'sphinx_copybutton',
