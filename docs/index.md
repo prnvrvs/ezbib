@@ -6,6 +6,11 @@ Welcome to the official documentation for `ezbib`.
 
 Raw bibliographic metadata from academic APIs is frequently inconsistent, filled with XML fragments, cluttered with unreviewed preprints, and cumbersome to organize. `ezbib` was built specifically for researchers, lab managers, and scientific developers who need clean, publication-ready records without installing heavy dependencies.
 
+
+:::{grid-item}
+**🌐 Built-in Web GUI**  
+Run `ezbib web` to instantly launch a beautiful browser-based interface locally!
+:::
 ::::{grid} 1 2 2 2
 :gutter: 3
 

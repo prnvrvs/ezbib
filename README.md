@@ -35,6 +35,12 @@ ezbib 10.1016/j.actamat.2025.121319 -f markdown -o cv.md
 ezbib 10.1016/j.actamat.2025.121319 -f text --style nature
 ```
 
+Launch the built-in browser UI (requires zero dependencies):
+```bash
+ezbib web
+```
+
+
 ---
 
 ## 🧭 Full Documentation
