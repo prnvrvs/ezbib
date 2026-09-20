@@ -7,26 +7,34 @@ Welcome to the official documentation for `ezbib`.
 Raw bibliographic metadata from academic APIs is frequently inconsistent, filled with XML fragments, cluttered with unreviewed preprints, and cumbersome to organize. `ezbib` was built specifically for researchers, lab managers, and scientific developers who need clean, publication-ready records without installing heavy dependencies.
 
 ::::{grid} 1 2 2 2
-:gutter: 3
+:gutter: 4
 
-:::{grid-item-card} ⚡ Zero Dependencies
-:class-header: bg-light
+:::{grid-item}
+```{admonition} ⚡ Zero Dependencies
+:class: tip
 Built 100% on the Python Standard Library. No third-party packages required.
+```
 :::
 
-:::{grid-item-card} ⌨️ Interactive Mode
-:class-header: bg-light
+:::{grid-item}
+```{admonition} ⌨️ Interactive Mode
+:class: tip
 Paste complex DOIs with special characters without breaking your terminal shell.
+```
 :::
 
-:::{grid-item-card} 🧹 LaTeX Sanitization
-:class-header: bg-light
+:::{grid-item}
+```{admonition} 🧹 LaTeX Sanitization
+:class: tip
 Auto-converts messy MathML (`<mml:math>`) into clean standard LaTeX.
+```
 :::
 
-:::{grid-item-card} 🧠 Smart Deduplication
-:class-header: bg-light
+:::{grid-item}
+```{admonition} 🧠 Smart Deduplication
+:class: tip
 Intelligently suppresses arXiv/bioRxiv preprints if peer-reviewed versions exist.
+```
 :::
 ::::
 
