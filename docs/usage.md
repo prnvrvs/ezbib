@@ -59,7 +59,7 @@ Don't want to use the command line? Start the built-in browser interface!
 ```bash
 ezbib web
 ```
-This automatically spins up a local web server (using only standard Python libraries) and opens a beautiful, interactive form in your default web browser!
+This automatically spins up a local web server (using only standard Python libraries) and opens a beautiful, interactive form in your default web browser!\n\n![ezbib Web Interface](_static/web_gui.png)
 
 ## 🎨 Citation Styles
 
