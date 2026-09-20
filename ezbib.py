@@ -8,7 +8,7 @@ Zero external dependencies - uses standard library only.
 
 import sys
 
-__version__ = "1.1.4"
+__version__ = "1.1.5"
 
 REQUIRED_MODULES = [
     ("urllib.request", "Python standard HTTP/networking module"),
@@ -548,11 +548,17 @@ class WebGUIHandler(http.server.BaseHTTPRequestHandler):
 def start_web_server():
     port = 8080
     socketserver.TCPServer.allow_reuse_address = True
-    try:
-        httpd = socketserver.TCPServer(("", port), WebGUIHandler)
-    except OSError:
-        port = 8081
-        httpd = socketserver.TCPServer(("", port), WebGUIHandler)
+    httpd = None
+    for p in range(8080, 8090):
+        try:
+            port = p
+            httpd = socketserver.TCPServer(("", port), WebGUIHandler)
+            break
+        except OSError:
+            continue
+    
+    if not httpd:
+        raise OSError("Could not find an open port between 8080 and 8089")
         
     print(f"[*] Starting ezbib Web GUI at http://localhost:{port}")
     
