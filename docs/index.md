@@ -38,7 +38,6 @@ Intelligently suppresses arXiv/bioRxiv preprints if peer-reviewed versions exist
 
 installation
 usage
-api
 faq
 ```
 
@@ -61,13 +60,7 @@ Learn how to install `ezbib` globally or run it directly without any installatio
 Explore common CLI workflows, citation formats, and Markdown CV generation.
 :::
 
-:::{grid-item-card} 🐍 Python API
-:link: api
-:link-type: doc
-:class-card: shadow
 
-Integrate `ezbib` programmatically into your own Python applications.
-:::
 
 :::{grid-item-card} ❓ FAQ
 :link: faq

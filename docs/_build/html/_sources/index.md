@@ -9,23 +9,23 @@ Raw bibliographic metadata from academic APIs is frequently inconsistent, filled
 ::::{grid} 1 2 2 2
 :gutter: 3
 
-:::{grid-item-card} ⚡ Zero Dependencies
-:class-header: bg-light
+:::{grid-item}
+**⚡ Zero Dependencies**  
 Built 100% on the Python Standard Library. No third-party packages required.
 :::
 
-:::{grid-item-card} ⌨️ Interactive Mode
-:class-header: bg-light
+:::{grid-item}
+**⌨️ Interactive Mode**  
 Paste complex DOIs with special characters without breaking your terminal shell.
 :::
 
-:::{grid-item-card} 🧹 LaTeX Sanitization
-:class-header: bg-light
+:::{grid-item}
+**🧹 LaTeX Sanitization**  
 Auto-converts messy MathML (`<mml:math>`) into clean standard LaTeX.
 :::
 
-:::{grid-item-card} 🧠 Smart Deduplication
-:class-header: bg-light
+:::{grid-item}
+**🧠 Smart Deduplication**  
 Intelligently suppresses arXiv/bioRxiv preprints if peer-reviewed versions exist.
 :::
 ::::
@@ -48,6 +48,7 @@ faq
 :::{grid-item-card} 🚀 Getting Started
 :link: installation
 :link-type: doc
+:class-card: shadow
 
 Learn how to install `ezbib` globally or run it directly without any installation.
 :::
@@ -55,6 +56,7 @@ Learn how to install `ezbib` globally or run it directly without any installatio
 :::{grid-item-card} 💻 Usage & Recipes
 :link: usage
 :link-type: doc
+:class-card: shadow
 
 Explore common CLI workflows, citation formats, and Markdown CV generation.
 :::
@@ -62,6 +64,7 @@ Explore common CLI workflows, citation formats, and Markdown CV generation.
 :::{grid-item-card} 🐍 Python API
 :link: api
 :link-type: doc
+:class-card: shadow
 
 Integrate `ezbib` programmatically into your own Python applications.
 :::
@@ -69,6 +72,7 @@ Integrate `ezbib` programmatically into your own Python applications.
 :::{grid-item-card} ❓ FAQ
 :link: faq
 :link-type: doc
+:class-card: shadow
 
 Answers to questions about ORCID API limits, missing DOIs, and citation styles.
 :::

@@ -7,8 +7,6 @@ copyright = '2026, Pranav'
 author = 'Pranav'
 
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
     'myst_parser',
     'sphinx_design',
     'sphinx_copybutton',
