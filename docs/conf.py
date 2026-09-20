@@ -16,8 +16,16 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
+
+html_theme_options = {
+    "repository_url": "https://github.com/prnvrvs/ezbib",
+    "use_repository_button": True,
+    "use_issues_button": True,
+    "use_edit_page_button": True,
+    "home_page_in_toc": True,
+}
 
 myst_enable_extensions = [
     "colon_fence",
