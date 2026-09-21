@@ -71,15 +71,15 @@ class TestDoiDetection(unittest.TestCase):
         )
 
     def test_orcid_is_not_doi(self):
-        self.assertFalse(ezbib.is_doi("0000-0002-1825-0097"))
-        self.assertFalse(ezbib.is_doi("https://orcid.org/0000-0002-1825-0097"))
+        self.assertFalse(ezbib.is_doi("0000-0002-3661-5870"))
+        self.assertFalse(ezbib.is_doi("https://orcid.org/0000-0002-3661-5870"))
 
 
 class TestCliParser(unittest.TestCase):
     def test_parser_defaults(self):
         parser = ezbib.build_parser()
-        args = parser.parse_args(["0000-0002-1825-0097"])
-        self.assertEqual(args.target, ["0000-0002-1825-0097"])
+        args = parser.parse_args(["0000-0002-3661-5870"])
+        self.assertEqual(args.target, ["0000-0002-3661-5870"])
         self.assertEqual(args.format, "bibtex")
         self.assertEqual(args.style, "apa")
         self.assertFalse(args.no_dedup)

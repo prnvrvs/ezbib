@@ -26,7 +26,7 @@ pip install ezbib
 
 Generate a complete, deduplicated BibTeX file for an author:
 ```bash
-ezbib 0000-0002-1825-0097 -o publications.bib
+ezbib 0000-0002-3661-5870 -o publications.bib
 ```
 
 Generate a Markdown CV or styled text citations (Nature, APA, IEEE):

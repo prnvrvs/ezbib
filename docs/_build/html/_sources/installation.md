@@ -20,5 +20,5 @@ cd ezbib
 pip install .
 
 # Now you can use the command globally!
-ezbib 0000-0002-1825-0097
+ezbib 0000-0002-3661-5870
 ```

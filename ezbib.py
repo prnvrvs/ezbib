@@ -164,6 +164,14 @@ def clean_doi_str(doi):
     d = str(doi).strip()
     d = urllib.parse.unquote(d)
     
+    # Native ArXiv Support
+    if "arxiv.org/abs/" in d.lower():
+        arxiv_id = d.split("/abs/")[-1].split("?")[0].split("v")[0].strip()
+        return f"10.48550/arXiv.{arxiv_id}"
+    if d.lower().startswith("arxiv:"):
+        arxiv_id = d[6:].strip()
+        return f"10.48550/arXiv.{arxiv_id}"
+        
     # Universal URL Extractor
     if d.startswith("http") and "orcid.org" not in d.lower() and "doi.org" not in d.lower():
         try:
@@ -182,11 +190,14 @@ def clean_doi_str(doi):
         except Exception:
             pass
             
-    # Auto-resolve ScienceDirect PIIs (if HTML fetch failed)
-    if "sciencedirect.com/science/article/pii/" in d.lower():
-        pii = d.split("/pii/")[-1].split("?")[0].split("#")[0].strip()
+    # Auto-resolve Elsevier PIIs (ScienceDirect, Lancet, Cell, etc.)
+    pii_match = re.search(r'(?:/pii/|PII)(S[A-Za-z0-9\-\(\)]{10,})', d, re.IGNORECASE)
+    if pii_match:
+        raw_pii = pii_match.group(1).split("?")[0].split("/")[0]
+        # Crossref search works best with strictly alphanumeric PIIs
+        clean_pii = re.sub(r'[^A-Za-z0-9]', '', raw_pii)
         try:
-            req = urllib.request.Request(f"https://api.crossref.org/works?query={pii}&select=DOI&rows=1", headers={"User-Agent": "ezbib/1.0"})
+            req = urllib.request.Request(f"https://api.crossref.org/works?query={clean_pii}&select=DOI&rows=1", headers={"User-Agent": "ezbib/1.0"})
             with urllib.request.urlopen(req, timeout=10) as resp:
                 import json
                 data = json.loads(resp.read().decode('utf-8'))
@@ -452,7 +463,7 @@ HTML_TEMPLATE = """
         <form id="ezbib-form">
             <div class="form-group">
                 <label for="target">ORCID iD or DOI</label>
-                <input type="text" id="target" placeholder="e.g. 0000-0002-1825-0097 or 10.1016/j.actamat.2025.121319" required>
+                <input type="text" id="target" placeholder="e.g. 0000-0002-3661-5870 or 10.1016/j.actamat.2025.121319" required>
             </div>
             
             <div class="row">
@@ -677,10 +688,10 @@ def build_parser():
         "PRACTICAL USAGE EXAMPLES:",
         "=" * 79,
         "  1. Fetch all works for an ORCID profile:",
-        "     ezbib 0000-0002-1825-0097",
+        "     ezbib 0000-0002-3661-5870",
         "",
         "  2. Filter publications from year 2021 onwards and save to .bib:",
-        "     ezbib 0000-0002-1825-0097 -y 2021 -o my_pubs.bib",
+        "     ezbib 0000-0002-3661-5870 -y 2021 -o my_pubs.bib",
         "",
         "  3. Fetch BibTeX for a single DOI directly:",
         "     ezbib 10.1016/j.actamat.2025.121319",
@@ -690,16 +701,16 @@ def build_parser():
         "     ezbib -d 10.1016/j.actamat.2025.121319 -o paper.bib",
         "",
         "  5. Print formatted bibliography in APA, Nature, IEEE, or ACS style:",
-        "     ezbib 0000-0002-1825-0097 -y 2021 -f text",
+        "     ezbib 0000-0002-3661-5870 -y 2021 -f text",
         "     ezbib 10.1016/j.actamat.2025.121319 -f text --style nature",
         "     ezbib 10.1016/j.actamat.2025.121319 -f text --style ieee",
         "     ezbib 10.1016/j.actamat.2025.121319 -f text --style acs",
         "",
         "  6. Export as a formatted Markdown publication list for CV / Website:",
-        "     ezbib 0000-0002-1825-0097 -y 2021 -f markdown -o cv_pubs.md",
+        "     ezbib 0000-0002-3661-5870 -y 2021 -f markdown -o cv_pubs.md",
         "",
         "  7. Include all raw preprints without deduplication:",
-        "     ezbib 0000-0002-1825-0097 --no-dedup -o all_records.bib",
+        "     ezbib 0000-0002-3661-5870 --no-dedup -o all_records.bib",
         "=" * 79,
     ])
     parser = argparse.ArgumentParser(

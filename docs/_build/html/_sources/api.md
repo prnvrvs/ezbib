@@ -9,7 +9,7 @@ import ezbib
 
 # 1. Query an ORCID profile
 works = ezbib.fetch_orcid(
-    "0000-0002-1825-0097",
+    "0000-0002-3661-5870",
     min_year=2021,
     dedup=True
 )

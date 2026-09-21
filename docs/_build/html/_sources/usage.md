@@ -7,7 +7,7 @@ Here you will find common workflows for using `ezbib`, complete with example out
 ### 1. Fetching an entire ORCID profile
 Generate a complete, deduplicated BibTeX file for an author.
 ```bash
-ezbib 0000-0002-1825-0097 -o publications.bib
+ezbib 0000-0002-3661-5870 -o publications.bib
 ```
 
 ```{dropdown} 📄 View Sample Output (publications.bib)
@@ -29,7 +29,7 @@ ezbib 0000-0002-1825-0097 -o publications.bib
 ### 2. Exporting a Markdown CV
 Generate a clickable Markdown publication list for your personal website or CV.
 ```bash
-ezbib 0000-0002-1825-0097 -f markdown -o cv.md
+ezbib 0000-0002-3661-5870 -f markdown -o cv.md
 ```
 
 ```{dropdown} 📝 View Sample Output (cv.md)
