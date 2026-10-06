@@ -49,6 +49,35 @@ class TestBibtexFormatting(unittest.TestCase):
         self.assertTrue(author_pos != -1 and year_pos != -1 and author_pos < year_pos)
 
 
+class TestBibtexDisambiguation(unittest.TestCase):
+    def test_duplicate_keys_disambiguation(self):
+        entries = [
+            "@article{Kumar_2025,\n  title = {Paper A}\n}",
+            "@article{Smith_2025,\n  title = {Paper B}\n}",
+            "@article{Kumar_2025,\n  title = {Paper C}\n}",
+            "@article{Lee_2024,\n  title = {Paper D}\n}",
+            "@article{Lee_2024,\n  title = {Paper E}\n}",
+        ]
+        result = ezbib.disambiguate_bibtex_entries(entries)
+        keys = [ezbib.extract_bibtex_key(e) for e in result]
+        self.assertEqual(keys, ["Kumar_2025a", "Smith_2025", "Kumar_2025b", "Lee_2024a", "Lee_2024b"])
+
+    def test_single_string_disambiguation(self):
+        raw = "@article{Kumar_2025,\n  title = {A}\n}\n\n@article{Kumar_2025,\n  title = {B}\n}"
+        result = ezbib.disambiguate_bibtex_entries(raw)
+        self.assertIn("@article{Kumar_2025a,", result)
+        self.assertIn("@article{Kumar_2025b,", result)
+
+    def test_no_duplicates_unchanged(self):
+        entries = [
+            "@article{Kumar_2025,\n  title = {Paper A}\n}",
+            "@article{Smith_2025,\n  title = {Paper B}\n}",
+        ]
+        result = ezbib.disambiguate_bibtex_entries(entries)
+        keys = [ezbib.extract_bibtex_key(e) for e in result]
+        self.assertEqual(keys, ["Kumar_2025", "Smith_2025"])
+
+
 class TestDoiDetection(unittest.TestCase):
     def test_bare_doi(self):
         self.assertTrue(ezbib.is_doi("10.1016/j.actamat.2025.121319"))

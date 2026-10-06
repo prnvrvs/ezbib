@@ -8,7 +8,7 @@ Zero external dependencies - uses standard library only.
 
 import sys
 
-__version__ = "1.1.5"
+__version__ = "1.1.6"
 
 REQUIRED_MODULES = [
     ("urllib.request", "Python standard HTTP/networking module"),
@@ -45,6 +45,7 @@ if missing or sys.version_info < (3, 7):
     sys.exit(1)
 
 import argparse
+from collections import Counter
 import html
 import json
 import csv
@@ -155,6 +156,82 @@ def pretty_format_bibtex(raw_bib, extra_keywords=None):
 
     fields_joined = ",\n".join(formatted_fields)
     return f"@{entry_type}{{{cite_key},\n{fields_joined}\n}}"
+
+
+def extract_bibtex_key(entry):
+    """Extract citation key from a BibTeX entry string."""
+    match = re.search(r"^[ \t]*@([a-zA-Z]+)\s*\{\s*([^,]+)\s*,", entry.strip(), re.MULTILINE)
+    if match:
+        return match.group(2).strip()
+    return None
+
+
+def replace_bibtex_key(entry, new_key):
+    """Replace citation key in a BibTeX entry string."""
+    return re.sub(
+        r"^([ \t]*@[a-zA-Z]+\s*\{\s*)[^,]+(?=\s*,)",
+        rf"\g<1>{new_key}",
+        entry,
+        count=1,
+        flags=re.MULTILINE,
+    )
+
+
+def _get_key_suffix(idx):
+    """Convert a 0-based integer to alphabetical suffix ('a', 'b', ..., 'z', 'aa', 'ab'...)."""
+    res = ""
+    while True:
+        res = chr(ord("a") + (idx % 26)) + res
+        idx = idx // 26 - 1
+        if idx < 0:
+            break
+    return res
+
+
+def disambiguate_bibtex_entries(entries):
+    """
+    Ensure all BibTeX keys across a list of entries (or multi-entry string) are unique.
+    If multiple entries share the exact same key (e.g. Kumar_2025),
+    they are automatically disambiguated with alphabetical suffixes:
+    Kumar_2025a, Kumar_2025b, etc.
+    """
+    is_single_str = isinstance(entries, str)
+    if is_single_str:
+        raw_parts = re.findall(r"(@[a-zA-Z]+\s*\{.*?(?=\n\s*@[a-zA-Z]+\s*\{|\Z))", entries, re.DOTALL)
+        if not raw_parts:
+            return entries
+        entries = [p.strip() for p in raw_parts if p.strip()]
+
+    keys = [extract_bibtex_key(e) for e in entries]
+    valid_keys = [k for k in keys if k]
+    counts = Counter(valid_keys)
+    all_keys = set(valid_keys)
+
+    used_keys = set()
+    dup_index = Counter()
+
+    result = []
+    for entry, k in zip(entries, keys):
+        if not k:
+            result.append(entry)
+            continue
+
+        if counts[k] > 1:
+            while True:
+                idx = dup_index[k]
+                dup_index[k] += 1
+                candidate = f"{k}{_get_key_suffix(idx)}"
+                if candidate not in used_keys and candidate not in all_keys:
+                    break
+            used_keys.add(candidate)
+            result.append(replace_bibtex_key(entry, candidate))
+        else:
+            used_keys.add(k)
+            result.append(entry)
+
+    if is_single_str:
+        return "\n\n".join(result) + "\n"
+    return result
 
 
 def clean_doi_str(doi):
@@ -604,6 +681,8 @@ class WebGUIHandler(http.server.BaseHTTPRequestHandler):
                             results.append(f"- [DOI: {d}](https://doi.org/{d})") 
                         else:
                             results.append(doi_to_bibtex(d))
+                    if fmt == "bibtex":
+                        results = disambiguate_bibtex_entries(results)
                     output = "\n".join(results) if fmt == "csv" else "\n\n".join(results)
                 else:
                     works = fetch_orcid(target, min_year=min_year, dedup=dedup)
@@ -617,6 +696,7 @@ class WebGUIHandler(http.server.BaseHTTPRequestHandler):
                         output = "\n".join(entries)
                     elif fmt == "bibtex":
                         entries = [doi_to_bibtex(w['doi'], extra_keywords=w['category']) if w['doi'] else f"% Work without DOI: {w['title']} ({w['year']})" for w in works]
+                        entries = disambiguate_bibtex_entries(entries)
                         output = "\n\n".join(entries)
                     elif fmt == "markdown":
                         lines = [f"# Publications from ORCID {target}\n"]
@@ -804,6 +884,8 @@ def main(argv=None):
                     bib = doi_to_bibtex(d)
                     results.append(bib)
                 time.sleep(0.15)
+            if args.format not in ["csv", "text", "apa", "biblio", "markdown"]:
+                results = disambiguate_bibtex_entries(results)
             output = "\n".join(results) + "\n" if args.format == "csv" else "\n\n".join(results) + "\n"
 
         # 2. ORCID profile mode
@@ -830,6 +912,7 @@ def main(argv=None):
                         time.sleep(0.15)
                     else:
                         bib_entries.append(f"% Work without DOI: {w['title']} ({w['year']})")
+                bib_entries = disambiguate_bibtex_entries(bib_entries)
                 output = "\n\n".join(bib_entries) + "\n"
 
             elif args.format == "markdown":
