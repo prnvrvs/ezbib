@@ -48,6 +48,21 @@ class TestBibtexFormatting(unittest.TestCase):
         year_pos = formatted.find("year =")
         self.assertTrue(author_pos != -1 and year_pos != -1 and author_pos < year_pos)
 
+    def test_month_normalization(self):
+        raw_bib = """@article{Test2024,
+  year = {2024},
+  month = {Feb},
+  title = {A study on metals},
+  author = {Doe, John},
+  journal = {Acta Materialia}
+}"""
+        formatted = ezbib.pretty_format_bibtex(raw_bib)
+        self.assertIn("month = {2}", formatted)
+        self.assertNotIn("month = {Feb}", formatted)
+        self.assertEqual(ezbib.normalize_month("Sept"), "9")
+        self.assertEqual(ezbib.normalize_month("July"), "7")
+        self.assertEqual(ezbib.normalize_month("12"), "12")
+
 
 class TestBibtexDisambiguation(unittest.TestCase):
     def test_duplicate_keys_disambiguation(self):

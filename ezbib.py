@@ -8,7 +8,7 @@ Zero external dependencies - uses standard library only.
 
 import sys
 
-__version__ = "1.1.6"
+__version__ = "1.1.7"
 
 REQUIRED_MODULES = [
     ("urllib.request", "Python standard HTTP/networking module"),
@@ -78,6 +78,34 @@ def sanitize_latex(text):
     return text.strip()
 
 
+MONTH_MAP = {
+    "jan": "1", "january": "1",
+    "feb": "2", "february": "2",
+    "mar": "3", "march": "3",
+    "apr": "4", "april": "4",
+    "may": "5",
+    "jun": "6", "june": "6",
+    "jul": "7", "july": "7",
+    "aug": "8", "august": "8",
+    "sep": "9", "sept": "9", "september": "9",
+    "oct": "10", "october": "10",
+    "nov": "11", "november": "11",
+    "dec": "12", "december": "12",
+}
+
+
+def normalize_month(month_str):
+    """Normalize month name or abbreviation to an integer string (1-12) for BibTeX/BibLaTeX/Biber sorting."""
+    if not month_str:
+        return month_str
+    m_clean = str(month_str).strip().lower().rstrip(".")
+    if m_clean in MONTH_MAP:
+        return MONTH_MAP[m_clean]
+    if m_clean.isdigit() and 1 <= int(m_clean) <= 12:
+        return str(int(m_clean))
+    return month_str
+
+
 def pretty_format_bibtex(raw_bib, extra_keywords=None):
     """Clean and reorder BibTeX fields for consistent formatting."""
     raw_bib = sanitize_latex(raw_bib.strip())
@@ -136,6 +164,9 @@ def pretty_format_bibtex(raw_bib, extra_keywords=None):
             # Remove awkward space between LaTeX blocks and hyphens (e.g., "$\alpha$ -Fe" -> "$\alpha$-Fe")
             v = re.sub(r'(\$\S+\$)\s+(-)', r'\1\2', v)
             
+            if k == "month":
+                v = normalize_month(v)
+
             parsed_dict[k] = v
         else:
             parsed_dict[f] = None
